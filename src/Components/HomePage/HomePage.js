@@ -1,14 +1,19 @@
-import InfoInput from "../InfoInput/InfoInput";
-import NavBar from "../NavBar/NavBar";
 import "./HomePage.css";
 import React from "react";
+import HomePageLogo from "./HomePage.jpg";
 
 function HomePage() {
   return (
-    <div>
+    <div className="HomePageColumn">
       <div className="HomePage">
-        Welcome to VandyPool
-        <InfoInput />
+        <div className="Title">Save Money On Rides to the Airport</div>
+        <div className="SubTitle">
+          <div className="Box">Login</div>
+          <div className="Box">Create Account</div>
+        </div>
+      </div>
+      <div className="HomePageLogo">
+        <img src={HomePageLogo} alt="logo" />
       </div>
     </div>
   );
