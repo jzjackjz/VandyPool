@@ -1,6 +1,7 @@
 import "./HomePage.css";
 import React from "react";
 import HomePageLogo from "./HomePage.jpg";
+import { Link } from "react-router-dom";
 
 function HomePage() {
   return (
@@ -8,8 +9,12 @@ function HomePage() {
       <div className="HomePage">
         <div className="Title">Save Money On Rides to the Airport</div>
         <div className="SubTitle">
-          <div className="Box">Login</div>
-          <div className="Box">Create Account</div>
+          <button className="Box">
+            <Link>Login</Link>
+          </button>
+          <button className="Box">
+            <Link>Create Account</Link>
+          </button>
         </div>
       </div>
       <div className="HomePageLogo">
