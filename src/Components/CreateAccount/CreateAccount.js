@@ -1,6 +1,6 @@
 import "./CreateAccount.css";
 function CreateAccount() {
-  return <div>test</div>;
+  return <div>Create Account</div>;
 }
 
 export default CreateAccount;

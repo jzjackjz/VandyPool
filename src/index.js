@@ -8,10 +8,12 @@ import AccountInfo from "./Components/AccountInfo/AccountInfo";
 import LogIn from "./Components/LogIn/LogIn";
 import CreateAccount from "./Components/CreateAccount/CreateAccount";
 import Footer from "./Components/Footer/Footer";
+import NavBar from "./Components/NavBar/NavBar";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
+    <NavBar />
     <Routes>
       <Route path="/" element={<App />} />
       <Route path="/LogIn" element={<LogIn />} />

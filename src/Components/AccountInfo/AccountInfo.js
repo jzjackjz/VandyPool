@@ -5,7 +5,6 @@ import React from "react";
 function AccountInfo() {
   return (
     <div>
-      <NavBar />
       <div>test</div>;
     </div>
   );
