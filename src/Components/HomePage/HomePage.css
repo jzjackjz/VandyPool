@@ -2,7 +2,7 @@
     text-align: left;
     color:black;
     padding: 10px;
-    flex: 50%;
+    flex: 45%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -11,7 +11,7 @@
   }
 
   .Title{
-    font-size: 50px;
+    font-size: 70px;
     padding-left: 20%;
     padding-bottom: 5%;
   }
@@ -19,7 +19,8 @@
   .Box{
     background-color: blanchedalmond;
     width: 30%;
-    font-size: 15px;
+    height: 130%;
+    font-size: 18px;
   }
 
   .SubTitle a{
@@ -34,13 +35,13 @@
   .SubTitle{
     display: flex;
     flex-direction: row;
-    width: 50%;
+    width: 60%;
     justify-content: space-between;
   }
 
 
   .HomePageLogo{
-    flex: 50%;
+    flex: 55%;
     padding: 5%;
 
   }
