@@ -7,6 +7,7 @@ import reportWebVitals from "./reportWebVitals";
 import AccountInfo from "./Components/AccountInfo/AccountInfo";
 import LogIn from "./Components/LogIn/LogIn";
 import CreateAccount from "./Components/CreateAccount/CreateAccount";
+import Footer from "./Components/Footer/Footer";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -20,6 +21,7 @@ root.render(
       <Route path="/FlightInfo" element={<App />} />
       <Route path="/ViewDrivers" element={<App />} />
     </Routes>
+    <Footer />
   </BrowserRouter>
 );
 

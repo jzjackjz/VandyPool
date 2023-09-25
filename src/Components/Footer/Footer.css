@@ -1,0 +1,16 @@
+.Footer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    position: absolute;
+    bottom: 0;
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-bottom: 1%;
+    
+}
+
+.img{
+    height: 5%;
+    width: 5%;
+}
