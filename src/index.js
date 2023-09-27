@@ -5,10 +5,11 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import AccountInfo from "./Components/AccountInfo/AccountInfo";
-import RiderSignUp from "./Components/LogIn/RiderSignUp";
 import DriverSignUp from "./Components/CreateAccount/DriverSignUp";
 import Footer from "./Components/Footer/Footer";
 import NavBar from "./Components/NavBar/NavBar";
+import RiderSignUp from "./Components/CreateAccount/RiderSignUp";
+import LogIn from "./Components/LogIn/LogIn";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -16,6 +17,7 @@ root.render(
     <NavBar />
     <Routes>
       <Route path="/" element={<App />} />
+      <Route path="/LogIn" element={<LogIn />} />
       <Route path="/RiderSignUp" element={<RiderSignUp />} />
       <Route path="/DriverSignUp" element={<DriverSignUp />} />
       <Route path="/AccountInfo" element={<AccountInfo />} />

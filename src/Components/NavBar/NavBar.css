@@ -28,3 +28,7 @@
   .navbar a:hover {
     text-decoration: underline; 
   }
+
+.logIn{
+  font-size: 15px;
+}

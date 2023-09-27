@@ -22,6 +22,11 @@ function NavBar() {
           <li>
             <Link to="/ViewDrivers">View Drivers</Link>
           </li>
+          <li>
+            <button className="logIn">
+              <Link to="/LogIn">Log In</Link>
+            </button>
+          </li>
         </ul>
       </nav>
     </div>
