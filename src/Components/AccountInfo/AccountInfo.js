@@ -1,4 +1,3 @@
-import NavBar from "../NavBar/NavBar";
 import "./AccountInfo.css";
 import React from "react";
 
