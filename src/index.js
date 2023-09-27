@@ -5,8 +5,8 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import AccountInfo from "./Components/AccountInfo/AccountInfo";
-import LogIn from "./Components/LogIn/LogIn";
-import CreateAccount from "./Components/CreateAccount/CreateAccount";
+import RiderSignUp from "./Components/LogIn/RiderSignUp";
+import DriverSignUp from "./Components/CreateAccount/DriverSignUp";
 import Footer from "./Components/Footer/Footer";
 import NavBar from "./Components/NavBar/NavBar";
 
@@ -16,8 +16,8 @@ root.render(
     <NavBar />
     <Routes>
       <Route path="/" element={<App />} />
-      <Route path="/LogIn" element={<LogIn />} />
-      <Route path="/CreateAccount" element={<CreateAccount />} />
+      <Route path="/RiderSignUp" element={<RiderSignUp />} />
+      <Route path="/DriverSignUp" element={<DriverSignUp />} />
       <Route path="/AccountInfo" element={<AccountInfo />} />
       <Route path="/ConnectPassengers" element={<App />} />
       <Route path="/FlightInfo" element={<App />} />
