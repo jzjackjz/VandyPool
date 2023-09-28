@@ -20,7 +20,7 @@
     border-radius: 5px;
     font-size: 12px;
     width: 100%;
-    background-color: #f5f5f5; /* Gray background for input fields */
+    background-color: #f5f5f5; 
   }
   
   .flight-registration-container button {
@@ -29,14 +29,14 @@
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
-    background-color: #000; /* Black color */
+    background-color: #000; 
     color: white;
     transition: background-color 0.3s;
     width: 100%;
   }
   
   .flight-registration-container button:hover {
-    background-color: #555; /* Darker gray on hover */
+    background-color: #555;
   }
 
   .flight-registration-container select {
@@ -45,6 +45,6 @@
     border-radius: 5px;
     font-size: 12px;
     width: 100%;
-    background-color: #f5f5f5; /* Gray background */
-    appearance: none; /* To disable default browser styling */
+    background-color: #f5f5f5;
+    appearance: none; 
   }
