@@ -1,6 +1,6 @@
 .HomePage {
     text-align: left;
-    color:black;
+    color:white;
     padding: 10px;
     flex: 45%;
     display: flex;
@@ -14,10 +14,11 @@
     font-size: 70px;
     padding-left: 20%;
     padding-bottom: 5%;
+    padding-top: 10%;
   }
 
   .Box{
-    background-color: #F5D467;
+    background-color: white;
     width: 45%;
     height: 130%;
     font-size: 18px;
@@ -43,6 +44,7 @@
   .HomePageLogo{
     flex: 55%;
     padding: 5%;
+    padding-top: 10%;
 
   }
   img{

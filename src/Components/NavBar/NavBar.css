@@ -1,5 +1,4 @@
 .navbar {
-    color:black;
     padding: 20px 60px;
     overflow: hidden; 
     display: flex;
@@ -22,13 +21,9 @@
   
   .navbar a {
     text-decoration: none;
-    color: black;
+    color:white;
   }
   
   .navbar a:hover {
     text-decoration: underline; 
   }
-
-.logIn{
-  font-size: 15px;
-}

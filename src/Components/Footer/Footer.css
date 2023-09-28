@@ -7,10 +7,13 @@
     padding-left: 5%;
     padding-right: 5%;
     padding-bottom: 1%;
+    background-color: black;
+    color: white;
     
 }
 
 .img{
     height: 5%;
     width: 5%;
+    background-color: black;
 }

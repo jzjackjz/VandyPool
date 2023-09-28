@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 function NavBar() {
   return (
     <div>
-      <nav className="navbar">
+      <div className="navbar">
         <ul>
           <li>
             <Link to="/">VandyPool</Link>
@@ -23,12 +23,10 @@ function NavBar() {
             <Link to="/ViewDrivers">View Drivers</Link>
           </li>
           <li>
-            <button className="logIn">
-              <Link to="/LogIn">Log In</Link>
-            </button>
+            <Link to="/LogIn">Log In</Link>
           </li>
         </ul>
-      </nav>
+      </div>
     </div>
   );
 }
