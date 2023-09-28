@@ -10,6 +10,7 @@ import Footer from "./Components/Footer/Footer";
 import NavBar from "./Components/NavBar/NavBar";
 import RiderSignUp from "./Components/CreateAccount/RiderSignUp";
 import LogIn from "./Components/LogIn/LogIn";
+import FlightInfo from "./Components/FlightInfo/FlightInfo";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -22,7 +23,7 @@ root.render(
       <Route path="/DriverSignUp" element={<DriverSignUp />} />
       <Route path="/AccountInfo" element={<AccountInfo />} />
       <Route path="/ConnectPassengers" element={<App />} />
-      <Route path="/FlightInfo" element={<App />} />
+      <Route path="/FlightInfo" element={<FlightInfo />} />
       <Route path="/ViewDrivers" element={<App />} />
     </Routes>
     <Footer />
