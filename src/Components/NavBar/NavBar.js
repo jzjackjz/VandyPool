@@ -23,6 +23,9 @@ function NavBar() {
             <Link to="/ViewDrivers">View Drivers</Link>
           </li>
           <li>
+            <Link to="/CurrTimeslots">View Current Timeslots</Link>
+          </li>
+          <li>
             <Link to="/LogIn">Log In</Link>
           </li>
         </ul>
