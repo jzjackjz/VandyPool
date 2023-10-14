@@ -1,4 +1,4 @@
-.timeslot {
+.timeslots {
     text-align: left;
     color:white;
     padding: 10px;
@@ -9,11 +9,11 @@
 
   }
 
-  .timeslot a{
+  .timeslots a{
     text-decoration: none;
     color: black;
   }
 
-  .timeslot a:hover {
+  .timeslots a:hover {
     text-decoration: underline; 
   }
