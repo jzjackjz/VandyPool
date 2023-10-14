@@ -1,0 +1,19 @@
+.timeslots {
+    text-align: left;
+    color:white;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+  }
+
+  .timeslots a{
+    text-decoration: none;
+    color: black;
+  }
+
+  .timeslots a:hover {
+    text-decoration: underline; 
+  }
