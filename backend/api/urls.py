@@ -1,6 +1,10 @@
-from django.urls import path
-from api.views import Index
+from django.urls import path, include
+from .views import FlightInformationViewSet
+from rest_framework.routers import DefaultRouter
+
+router = DefaultRouter()
+router.register('flights', FlightInformationViewSet, basename='flights')
 
 urlpatterns = [
-    path('', Index)
+    path('', include(router.urls))
 ]
