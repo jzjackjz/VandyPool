@@ -9,7 +9,9 @@ function AccountInfo() {
       <h1>Account Information</h1> 
 
       <bigbox>
-        <subtitle>Basic Information</subtitle>
+        <Link to="/DriverSignUp">
+          <button><subtitle>Basic Information</subtitle>{">"}</button>
+        </Link>
         <field>
           <field-name>Profile Picture</field-name>
           <field-value>Placeholder</field-value>
@@ -21,7 +23,9 @@ function AccountInfo() {
       </bigbox>
 
       <bigbox>
-        <subtitle>Contact Information</subtitle>
+        <Link to="/DriverSignUp">
+          <button><subtitle>Contact Information</subtitle>{">"}</button>
+        </Link>
         <field>
           <field-name>Email</field-name>
           <field-value>email@vanderbilt.edu</field-value>
@@ -33,13 +37,14 @@ function AccountInfo() {
       </bigbox>
 
       <bigbox>
-        <subtitle>Password</subtitle>
+        <Link to="/DriverSignUp">
+          <button><subtitle>Password</subtitle>{">"}</button>
+        </Link>
         <field>
           <field-name>Password</field-name>
           <field-value>********</field-value>
         </field>
       </bigbox>
-      <Link to="/DriverSignUp"><button>Edit</button></Link>
     </div>
   );
 }
