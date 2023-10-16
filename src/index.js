@@ -14,6 +14,7 @@ import LogIn from "./Components/LogIn/LogIn";
 import FlightInfo from "./Components/FlightInfo/FlightInfo";
 import DriverTimeslots from "./Components/DriverTimeslots/DriverTimeslots";
 import NewTimeslots from "./Components/DriverTimeslots/NewTimeslots";
+import Connect from "./Components/Connect/Connect";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -26,7 +27,7 @@ root.render(
       <Route path="/RiderSignUp" element={<RiderSignUp />} />
       <Route path="/DriverSignUp" element={<DriverSignUp />} />
       <Route path="/AccountInfo" element={<AccountInfo />} />
-      <Route path="/ConnectPassengers" element={<App />} />
+      <Route path="/ConnectPassengers" element={<Connect />} />
       <Route path="/FlightInfo" element={<FlightInfo />} />
       <Route path="/CurrTimeslots" element={<DriverTimeslots />} />
       <Route path="/NewTimeslot" element={<NewTimeslots />} />
