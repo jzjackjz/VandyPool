@@ -1,15 +1,31 @@
+import axios from "axios";
 import "./NewTimeslots.css";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function NewTimeslots() {
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [spotsAvail, setSpotsAvail] = useState("");
+  const navigate = useNavigate();
 
-  const handleSubmit = () => {
-    // TODO: handle when submit button is clicked
-  };
+  async function handleSubmit() {
+    try {
+      const searchResponse = await axios.post(
+        "http://127.0.0.1:8000/timeslot/",
+        {
+          date: date,
+          time: time,
+          space_available: spotsAvail,
+        }
+      );
+      navigate("/CurrTimeslots");
+    } catch (error) {
+      alert(
+        "Something went wrong when creating a new timeslot, please try again"
+      );
+    }
+  }
 
   return (
     <div className="timeslot">
