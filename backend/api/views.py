@@ -1,12 +1,17 @@
-from django.shortcuts import render, HttpResponse, get_object_or_404
-from rest_framework import status, generics, mixins, viewsets
-from rest_framework.decorators import api_view, APIView
+from django.shortcuts import get_object_or_404
+from django.contrib.auth.models import User
+from rest_framework import status, viewsets
 from rest_framework.response import Response
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 from .models import FlightInformation
-from .serializers import FlightInformationSerializer
+from .serializers import FlightInformationSerializer, UserSerializer
 
 
 class FlightInformationViewSet(viewsets.ViewSet):
+
+    permission_classes = [IsAuthenticated]
+    authentication_classes = (TokenAuthentication,)
 
     def list(self, request):
         flights = FlightInformation.objects.all()
@@ -39,3 +44,8 @@ class FlightInformationViewSet(viewsets.ViewSet):
         flight = FlightInformation.objects.get(pk=pk)
         flight.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+    
+
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
