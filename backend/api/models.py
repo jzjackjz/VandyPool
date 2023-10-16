@@ -12,3 +12,8 @@ class FlightInformation(models.Model):
 
     def __str__(self):
         return self.ride_type
+
+class Timeslot(models.Model):
+    date = models.DateField()
+    time = models.TimeField()
+    space_available = models.IntegerField()

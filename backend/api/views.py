@@ -2,8 +2,8 @@ from django.shortcuts import render, HttpResponse, get_object_or_404
 from rest_framework import status, generics, mixins, viewsets
 from rest_framework.decorators import api_view, APIView
 from rest_framework.response import Response
-from .models import FlightInformation
-from .serializers import FlightInformationSerializer
+from .models import FlightInformation, Timeslot
+from .serializers import FlightInformationSerializer, TimeSlotSerializer
 
 
 class FlightInformationViewSet(viewsets.ViewSet):
@@ -39,3 +39,8 @@ class FlightInformationViewSet(viewsets.ViewSet):
         flight = FlightInformation.objects.get(pk=pk)
         flight.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+class TimeslotViewSet(viewsets.ModelViewSet):
+    queryset = Timeslot.objects.all()
+    serializer_class = TimeSlotSerializer
+
