@@ -5,13 +5,29 @@
     width: 350px;
     margin: 50px auto;
     padding: 40px;
+    align-items: center;
   }
   
   .log-in-container h1 {
     text-align: center;
     font-size: 24px;
-    color: #4e4545;
+    color: #ffffff;
     margin-bottom: 20px;
+  }
+
+  .log-in-container h2 {
+    text-align: center;
+    font-size: 24px;
+    color: #c43b3b;
+    margin-bottom: 20px;
+  }
+
+  .log-in-container p {
+    text-align: center;
+    font-size: 16px;
+    color: #ffffff;
+    margin-bottom: 20px;
+    width: 550px;
   }
   
   .log-in-container input {
@@ -29,13 +45,35 @@
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
-    background-color: #000;
+    background-color: #585858;
     color: white;
     transition: background-color 0.3s;
     width: 100%;
   }
   
   .log-in-container button:hover {
-    background-color: #555;
+    background-color: #bcbcbc;
   }
   
+  .register-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  .register-container button {
+    padding: 6px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    background-color: #585858;
+    color: white;
+    transition: background-color 0.3s;
+  }
+  
+  .register-container button:hover {
+    background-color: #bcbcbc;
+  }

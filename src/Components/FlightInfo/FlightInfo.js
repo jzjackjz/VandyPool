@@ -1,14 +1,25 @@
 import React, { useState } from 'react';
 import "./FlightInfo.css";
+import APIService from '../../APIService';
+import { useCookies } from "react-cookie";
 
 function FlightInfo() {
+    const [option, setOption] = useState('');  
     const [time, setTime] = useState('');
     const [date, setDate] = useState('');
     const [dropoff, setDropoff] = useState('');
     const [airline, setAirline] = useState('');
-    const [option, setOption] = useState('');  
+    const [token] = useCookies(['mytoken']);
   
     const handleSubmit = () => {
+      APIService.InsertFlightInformation({
+        ride_type: option,
+        flight_time: time,
+        flight_date: date,
+        dropoff_point: dropoff,
+        airline: airline
+      }, token['mytoken'])
+      .then(resp => console.log(resp))
     };
   
     return (

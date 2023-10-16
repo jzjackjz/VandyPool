@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { CookiesProvider } from "react-cookie";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
@@ -16,6 +17,7 @@ import NewTimeslots from "./Components/DriverTimeslots/NewTimeslots";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
+  <CookiesProvider>
   <BrowserRouter>
     <NavBar />
     <Routes>
@@ -32,6 +34,7 @@ root.render(
     </Routes>
     <Footer />
   </BrowserRouter>
+  </CookiesProvider>
 );
 
 reportWebVitals();
