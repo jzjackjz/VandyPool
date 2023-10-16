@@ -24,6 +24,8 @@
     box-shadow: 2px 2px 4px 0 whitesmoke;
     margin: 5px;
     padding: 13px;
+    justify-content: space-between; 
+    display: inline;
   }
   
   .account_info_container subtitle {
@@ -31,6 +33,7 @@
     font-size: 25px;
     text-align: left;
     margin-bottom: 10px;
+    margin-top: 5px;
   }
   
   
@@ -41,7 +44,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 10px;
+    border: 1px solid rgb(229, 226, 226); 
   }
   
   .account_info_container field-name {
@@ -58,11 +61,16 @@
   }
 
 
+  
+  
   .account_info_container button {
-    padding: 12px;
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    padding: 5px;
     border: none;
     border-radius: 5px;
-    font-size: 16px;
+    font-size: 20px;
     cursor: pointer;
     background-color: white; /* Black color */
     color: black;
@@ -77,5 +85,5 @@
   }
   
   .account_info_container button:hover {
-    background-color: #555; /* Darker gray on hover */
+    background-color: rgb(238, 237, 237); /* Darker gray on hover */
   }
