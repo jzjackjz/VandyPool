@@ -4,8 +4,8 @@ from rest_framework import status, viewsets
 from rest_framework.response import Response
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
-from .models import FlightInformation
-from .serializers import FlightInformationSerializer, UserSerializer
+from .models import FlightInformation, Timeslot
+from .serializers import FlightInformationSerializer, UserSerializer, TimeSlotSerializer
 
 
 class FlightInformationViewSet(viewsets.ViewSet):
@@ -49,3 +49,8 @@ class FlightInformationViewSet(viewsets.ViewSet):
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+class TimeslotViewSet(viewsets.ModelViewSet):
+    queryset = Timeslot.objects.all()
+    serializer_class = TimeSlotSerializer
+

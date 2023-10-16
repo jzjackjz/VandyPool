@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from .models import FlightInformation
+from .models import FlightInformation, Timeslot
 
 
 class FlightInformationSerializer(serializers.ModelSerializer):
@@ -16,3 +16,9 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ['id', 'username', 'password']
 
         
+
+class TimeSlotSerializer(serializers.ModelSerializer):
+        class Meta:
+             model = Timeslot
+             fields = '__all__'
+
