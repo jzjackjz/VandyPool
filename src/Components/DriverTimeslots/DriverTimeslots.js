@@ -2,6 +2,7 @@ import "./DriverTimeslots.css";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { Trash } from "react-bootstrap-icons";
 
 function DriverTimeslots() {
   const [timeslots, setTimeslots] = useState([]);
@@ -14,6 +15,17 @@ function DriverTimeslots() {
       alert(
         "Something went wrong when fetching the timeslots, please refresh page"
       );
+    }
+  }
+
+  async function handleDelete(id) {
+    try {
+      const searchResponse = await axios.delete(
+        "http://127.0.0.1:8000/timeslot/" + id + "/"
+      );
+      window.location.reload();
+    } catch (error) {
+      alert("Something went wrong when deleting the timeslot, pleas try again");
     }
   }
 
@@ -30,6 +42,7 @@ function DriverTimeslots() {
             <th>Date</th>
             <th>Time</th>
             <th>Space Available</th>
+            <th>Delete Timeslot</th>
           </tr>
         </thead>
         <tbody>
@@ -38,13 +51,23 @@ function DriverTimeslots() {
               <td>{item.date}</td>
               <td>{item.time}</td>
               <td>{item.space_available}</td>
+              <td>
+                {
+                  <Trash
+                    className="icon"
+                    onClick={() => handleDelete(item.id)}
+                  />
+                }
+              </td>
             </tr>
           ))}
         </tbody>
       </table>
-      <button>
-        <Link to="/NewTimeslot">New Timeslot</Link>
-      </button>
+      <div className="buttons">
+        <button>
+          <Link to="/NewTimeslot">+ New Timeslot</Link>
+        </button>
+      </div>
     </div>
   );
 }
