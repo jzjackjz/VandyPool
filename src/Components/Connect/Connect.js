@@ -5,7 +5,7 @@ import axios from "axios";
 import { Trash } from "react-bootstrap-icons";
 
 function ConnectPassengers() {
-  const [timeslots, setPassengers] = useState([]);
+  const [connect, setPassengers] = useState([]);
 
   async function fetchTimeslots() {
     try {
@@ -35,11 +35,11 @@ function ConnectPassengers() {
           </tr>
         </thead>
         <tbody>
-          {timeslots.map((item) => (
+          {connect.map((item) => (
             <tr key={item.id}>
-              <td>{item.date}</td>
-              <td>{item.time}</td>
-              <td>{item.dropoff}</td>
+              <td>{item.flight_date}</td>
+              <td>{item.flight_time}</td>
+              <td>{item.dropoff_point}</td>
               <td> {item.airline}</td>
             </tr>
           ))}
