@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { CookiesProvider } from "react-cookie";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
@@ -13,9 +14,11 @@ import LogIn from "./Components/LogIn/LogIn";
 import FlightInfo from "./Components/FlightInfo/FlightInfo";
 import DriverTimeslots from "./Components/DriverTimeslots/DriverTimeslots";
 import NewTimeslots from "./Components/DriverTimeslots/NewTimeslots";
+import Connect from "./Components/Connect/Connect";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
+  <CookiesProvider>
   <BrowserRouter>
     <NavBar />
     <Routes>
@@ -24,7 +27,7 @@ root.render(
       <Route path="/RiderSignUp" element={<RiderSignUp />} />
       <Route path="/DriverSignUp" element={<DriverSignUp />} />
       <Route path="/AccountInfo" element={<AccountInfo />} />
-      <Route path="/ConnectPassengers" element={<App />} />
+      <Route path="/ConnectPassengers" element={<Connect />} />
       <Route path="/FlightInfo" element={<FlightInfo />} />
       <Route path="/CurrTimeslots" element={<DriverTimeslots />} />
       <Route path="/NewTimeslot" element={<NewTimeslots />} />
@@ -32,6 +35,7 @@ root.render(
     </Routes>
     <Footer />
   </BrowserRouter>
+  </CookiesProvider>
 );
 
 reportWebVitals();
