@@ -17,7 +17,7 @@ function NavBar() {
             <Link to="/ConnectPassengers">Connect With Passengers</Link>
           </li>
           <li>
-            <Link to="/FlightInfo">Enter Flight Info</Link>
+            <Link to="/FlightInfo">Flight Info</Link>
           </li>
           <li>
             <Link to="/ViewDrivers">View Drivers</Link>

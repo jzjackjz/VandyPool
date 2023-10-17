@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import "./FlightInfo.css";
 import APIService from '../../APIService';
 import { useCookies } from "react-cookie";
+import { Link, useNavigate } from "react-router-dom";
 
 function FlightInfo() {
     const [option, setOption] = useState('');  
@@ -10,6 +11,7 @@ function FlightInfo() {
     const [dropoff, setDropoff] = useState('');
     const [airline, setAirline] = useState('');
     const [token] = useCookies(['mytoken']);
+    const navigate = useNavigate();
   
     const handleSubmit = () => {
       APIService.InsertFlightInformation({
@@ -20,6 +22,7 @@ function FlightInfo() {
         airline: airline
       }, token['mytoken'])
       .then(resp => console.log(resp))
+      navigate("/FlightInfo")
     };
   
     return (

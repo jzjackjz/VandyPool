@@ -11,10 +11,11 @@ import Footer from "./Components/Footer/Footer";
 import NavBar from "./Components/NavBar/NavBar";
 import RiderSignUp from "./Components/CreateAccount/RiderSignUp";
 import LogIn from "./Components/LogIn/LogIn";
-import FlightInfo from "./Components/FlightInfo/FlightInfo";
+import AllFlights from "./Components/FlightInfo/AllFlights";
 import DriverTimeslots from "./Components/DriverTimeslots/DriverTimeslots";
 import NewTimeslots from "./Components/DriverTimeslots/NewTimeslots";
 import Connect from "./Components/Connect/Connect";
+import FlightInfo from "./Components/FlightInfo/FlightInfo";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -28,7 +29,8 @@ root.render(
       <Route path="/DriverSignUp" element={<DriverSignUp />} />
       <Route path="/AccountInfo" element={<AccountInfo />} />
       <Route path="/ConnectPassengers" element={<Connect />} />
-      <Route path="/FlightInfo" element={<FlightInfo />} />
+      <Route path="/FlightInfo" element={<AllFlights />} />
+      <Route path="/AddFlight" element={<FlightInfo />} />
       <Route path="/CurrTimeslots" element={<DriverTimeslots />} />
       <Route path="/NewTimeslot" element={<NewTimeslots />} />
       <Route path="/ViewDrivers" element={<App />} />

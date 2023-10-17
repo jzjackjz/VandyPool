@@ -1,0 +1,60 @@
+.flights {
+    text-align: left;
+    color:white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+  }
+
+  .table {
+    width: 100%;
+    margin: 20px auto;
+  }
+  
+  th, td {
+    padding: 10px;
+    text-align: left;
+    border: 0.5px solid #ddd;
+    width: 30%;
+  }
+
+  .icon{
+    cursor: pointer;
+
+}
+
+.icon:hover {
+  color: #e91f63;
+}
+
+
+.flights button {
+  padding: 12px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: black;
+  transition: background-color 0.3s;
+  width: 10%;
+
+}
+
+.flights button:hover {
+  background-color: #555;
+}
+
+.flights a{
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-around;
+  text-decoration: none;
+  color: white;
+}
+
+.buttons{
+  padding-top: 10px;
+}
