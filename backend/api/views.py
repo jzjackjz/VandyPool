@@ -10,8 +10,8 @@ from .serializers import FlightInformationSerializer, UserSerializer, TimeSlotSe
 
 class FlightInformationViewSet(viewsets.ViewSet):
 
-    permission_classes = [IsAuthenticated]
-    authentication_classes = (TokenAuthentication,)
+    # permission_classes = [IsAuthenticated]
+    # authentication_classes = (TokenAuthentication,)
 
     def list(self, request):
         flights = FlightInformation.objects.all()
