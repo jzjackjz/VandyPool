@@ -35,10 +35,6 @@ function LogIn() {
     })
   };
 
-  const handleRegister = () => {
-    navigate('/'); // navigate to home page or registration page
-  };
-
   return (
     <div className="log-in-container">
       <h1>Log In</h1>
