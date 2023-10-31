@@ -46,7 +46,13 @@ INSTALLED_APPS = [
     "rest_framework",
     'rest_framework.authtoken',
     "corsheaders",
-    "api"
+    "api",
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+    "allauth.socialaccount.providers.google",
+    "allauth.account.auth_backends.AuthenticationBackend",
+    "django.contrib.auth.backends.ModelBackend"
 ]
 
 MIDDLEWARE = [

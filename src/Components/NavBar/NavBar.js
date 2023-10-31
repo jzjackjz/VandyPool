@@ -1,8 +1,13 @@
 import "./NavBar.css";
 import React from "react";
 import { Link } from "react-router-dom";
+import { useCookies } from 'react-cookie';
 
 function NavBar() {
+  const [token] = useCookies(['mytoken']);
+
+  const isLoggedIn = token['mytoken'] ? true : false;
+
   return (
     <div>
       <div className="navbar">
@@ -25,9 +30,15 @@ function NavBar() {
           <li>
             <Link to="/CurrTimeslots">View Current Timeslots</Link>
           </li>
-          <li>
-            <Link to="/LogIn">Log In</Link>
-          </li>
+          {isLoggedIn ? (
+            <li>
+              <Link to="/LogOut">Log Out</Link> {}
+            </li>
+          ) : (
+            <li>
+              <Link to="/LogIn">Log In</Link>
+            </li>
+          )}
         </ul>
       </div>
     </div>
