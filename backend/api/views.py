@@ -24,4 +24,3 @@ class UserViewSet(viewsets.ModelViewSet):
 class TimeslotViewSet(viewsets.ModelViewSet):
     queryset = Timeslot.objects.all()
     serializer_class = TimeSlotSerializer
-
