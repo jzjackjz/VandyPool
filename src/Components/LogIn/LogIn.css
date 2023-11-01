@@ -45,8 +45,8 @@
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
-    background-color: #585858;
-    color: white;
+    background-color: #ffffff;
+    color: black;
     transition: background-color 0.3s;
     width: 100%;
   }
@@ -64,16 +64,14 @@
   }
   
   .register-container button {
-    padding: 6px;
-    border: none;
-    border-radius: 5px;
-    font-size: 14px;
+    padding: 10px;
+    font-size: 16px;
     cursor: pointer;
-    background-color: #585858;
-    color: white;
+    background-color: gold;
+    color: black;
     transition: background-color 0.3s;
   }
   
   .register-container button:hover {
-    background-color: #bcbcbc;
+    background-color: rgb(205, 190, 102);
   }

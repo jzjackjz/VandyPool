@@ -9,33 +9,14 @@
   
   .rider-signup-container h1 {
     text-align: center;
-    font-size: 24px;
+    font-size: 36px;
     color: #f5f5f5;
-    margin-bottom: 20px;
+    margin-bottom: 1px;
   }
-  
-  .rider-signup-container input {
-    padding: 12px;
-    border: 1px solid;
-    border-radius: 5px;
-    font-size: 14px;
-    width: 100%;
-    background-color: #f5f5f5;
-  }
-  
-  .rider-signup-container button {
-    padding: 12px;
-    border: none;
-    border-radius: 5px;
+
+  .rider-signup-container p {
+    text-align: center;
     font-size: 16px;
-    cursor: pointer;
-    background-color: #000;
-    color: white;
-    transition: background-color 0.3s;
-    width: 100%;
+    color: #f5f5f5;
+    margin-bottom: 60px;
   }
-  
-  .rider-signup-container button:hover {
-    background-color: #555;
-  }
-  

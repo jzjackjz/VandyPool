@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
-import "./LogIn.css";
 import APIService from "../../APIService";
 import { useCookies } from "react-cookie";
+import { GoogleLogin } from 'react-google-login';
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../../UserContext";
+import "./LogIn.css";
+
+const clientId = "889198131381-dhul247pghoitlna875j2t6kej68mllq.apps.googleusercontent.com";
 
 function LogIn() {
   const [username, setUsername] = useState("");
@@ -19,7 +22,7 @@ function LogIn() {
     }
   }, [token, navigate]);
 
-  const handleSubmit = () => {
+  const responseGoogle = () => {
     APIService.LoginUser({
       username: username,
       password: password,
@@ -41,20 +44,14 @@ function LogIn() {
   return (
     <div className="log-in-container">
       <h1>Log In</h1>
-      {error && <p>{error}</p>}
-      <input
-        type="text"
-        placeholder="Username (Email)"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
+      <GoogleLogin
+        clientId={clientId}
+        buttonText="Log in with Google"
+        onSuccess={responseGoogle}
+        onFailure={responseGoogle}
+        cookiePolicy={'single_host_origin'}
       />
-      <input
-        type="Password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button onClick={handleSubmit}>Submit</button>
+      {error && <div className="error-message">{error}</div>}
       <div className="register-container">
         <p>If you don't have an account, please</p>
         <button className="register-button" onClick={() => navigate("/")}>
@@ -64,4 +61,5 @@ function LogIn() {
     </div>
   );
 }
+
 export default LogIn;

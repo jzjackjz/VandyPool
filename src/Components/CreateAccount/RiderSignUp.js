@@ -1,51 +1,47 @@
-import React, { useState } from "react";
+import React from "react";
+import { useState } from "react";
+import { GoogleLogin } from "react-google-login";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import "./RiderSignUp.css";
 
-function RiderSignUp() {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
+const clientId = "889198131381-dhul247pghoitlna875j2t6kej68mllq.apps.googleusercontent.com";
 
-  const handleSubmit = () => {
-    // TODO: handle when submit button is clicked
+function RiderSignUp() {
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
+
+  const handleGoogleRegister = (response) => {
+    if (response.error) {
+      setError(`Google registration error: ${response.error}`);
+      return;
+    }
+
+    axios.post('/api/auth/google-register', { token: response.tokenId })
+      .then(res => {
+        if (res.data.sessionToken) {
+          localStorage.setItem('sessionToken', res.data.sessionToken);
+          navigate('/');
+        } else {
+          setError('Registration failed: No session token returned from backend');
+        }
+      })
+      .catch(error => {
+        setError(`Error during Google registration: ${error.response.data.message}`);
+      });
   };
 
   return (
     <div className="rider-signup-container">
       <h1>Rider Registration</h1>
-      <input
-        type="text"
-        placeholder="First Name"
-        value={firstName}
-        onChange={(e) => setFirstName(e.target.value)}
+      <p>Please use your Vanderbilt associated email</p>
+      <GoogleLogin
+        clientId={clientId}
+        buttonText="Sign up with Google"
+        onSuccess={handleGoogleRegister}
+        onFailure={handleGoogleRegister}
+        cookiePolicy={'single_host_origin'}
       />
-      <input
-        type="text"
-        placeholder="Last Name"
-        value={lastName}
-        onChange={(e) => setLastName(e.target.value)}
-      />
-      <input
-        type="email"
-        placeholder="Vanderbilt Email Address"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <input
-        type="tel"
-        placeholder="Phone Number"
-        value={phoneNumber}
-        onChange={(e) => setPhoneNumber(e.target.value)}
-      />
-      <button onClick={handleSubmit}>Submit</button>
     </div>
   );
 }
