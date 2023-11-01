@@ -12,6 +12,7 @@ cytoolz==0.11.0
 daal4py==2021.5.0
 distlib==0.3.7
 Django==4.2.5
+django-allauth==0.58.1
 django-cors-headers==4.2.0
 djangorestframework==3.14.0
 et-xmlfile==1.1.0
