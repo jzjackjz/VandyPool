@@ -2,12 +2,14 @@ import axios from "axios";
 import "./NewTimeslots.css";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useUser } from "../../UserContext";
 
 function NewTimeslots() {
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [spotsAvail, setSpotsAvail] = useState("");
   const navigate = useNavigate();
+  const user = useUser();
 
   async function handleSubmit() {
     try {
@@ -17,6 +19,7 @@ function NewTimeslots() {
           date: date,
           time: time,
           space_available: spotsAvail,
+          username: user.user,
         }
       );
       navigate("/CurrTimeslots");

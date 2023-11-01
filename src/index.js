@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { CookiesProvider } from "react-cookie";
@@ -17,28 +17,31 @@ import NewTimeslots from "./Components/DriverTimeslots/NewTimeslots";
 import Connect from "./Components/Connect/Connect";
 import FlightInfo from "./Components/FlightInfo/FlightInfo";
 import LogOut from "./Components/LogIn/LogOut";
+import { UserProvider } from "./UserContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <CookiesProvider>
-  <BrowserRouter>
-    <NavBar />
-    <Routes>
-      <Route path="/" element={<App />} />
-      <Route path="/LogIn" element={<LogIn />} />
-      <Route path="/LogOut" element={<LogOut />} />
-      <Route path="/RiderSignUp" element={<RiderSignUp />} />
-      <Route path="/DriverSignUp" element={<DriverSignUp />} />
-      <Route path="/AccountInfo" element={<AccountInfo />} />
-      <Route path="/ConnectPassengers" element={<Connect />} />
-      <Route path="/FlightInfo" element={<AllFlights />} />
-      <Route path="/AddFlight" element={<FlightInfo />} />
-      <Route path="/CurrTimeslots" element={<DriverTimeslots />} />
-      <Route path="/NewTimeslot" element={<NewTimeslots />} />
-      <Route path="/ViewDrivers" element={<App />} />
-    </Routes>
-    <Footer />
-  </BrowserRouter>
+    <BrowserRouter>
+      <UserProvider>
+        <NavBar />
+        <Routes>
+          <Route path="/" element={<App />} />
+          <Route path="/LogIn" element={<LogIn />} />
+          <Route path="/LogOut" element={<LogOut />} />
+          <Route path="/RiderSignUp" element={<RiderSignUp />} />
+          <Route path="/DriverSignUp" element={<DriverSignUp />} />
+          <Route path="/AccountInfo" element={<AccountInfo />} />
+          <Route path="/ConnectPassengers" element={<Connect />} />
+          <Route path="/FlightInfo" element={<AllFlights />} />
+          <Route path="/AddFlight" element={<FlightInfo />} />
+          <Route path="/CurrTimeslots" element={<DriverTimeslots />} />
+          <Route path="/NewTimeslot" element={<NewTimeslots />} />
+          <Route path="/ViewDrivers" element={<App />} />
+        </Routes>
+        <Footer />
+      </UserProvider>
+    </BrowserRouter>
   </CookiesProvider>
 );
 

@@ -3,13 +3,17 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { Trash } from "react-bootstrap-icons";
+import { useUser } from "../../UserContext";
 
 function DriverTimeslots() {
   const [timeslots, setTimeslots] = useState([]);
+  const user = useUser();
 
   async function fetchTimeslots() {
     try {
-      const searchResponse = await axios.get("http://127.0.0.1:8000/timeslot/");
+      const searchResponse = await axios.get(
+        "http://127.0.0.1:8000/timeslot/?search=" + user.user
+      );
       setTimeslots(searchResponse.data);
     } catch (error) {
       alert(
@@ -21,7 +25,7 @@ function DriverTimeslots() {
   async function handleDelete(id) {
     try {
       const searchResponse = await axios.delete(
-        "http://127.0.0.1:8000/timeslot/" + id + "/"
+        "http://127.0.0.1:8000/timeslot/" + id + "/?search=" + user.user
       );
       window.location.reload();
     } catch (error) {
@@ -35,7 +39,7 @@ function DriverTimeslots() {
 
   return (
     <div className="timeslots">
-      <h1>Your Current Time Slots</h1>
+      <h1>Welcome, {user.user} Here are Your Current Time Slots</h1>
       <table>
         <thead>
           <tr>

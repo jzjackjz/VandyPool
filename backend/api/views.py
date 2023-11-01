@@ -6,7 +6,7 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from .models import FlightInformation, Timeslot
 from .serializers import FlightInformationSerializer, UserSerializer, TimeSlotSerializer
-
+from rest_framework.filters import SearchFilter
 
 class FlightInformationViewSet(viewsets.ModelViewSet):
 
@@ -24,3 +24,5 @@ class UserViewSet(viewsets.ModelViewSet):
 class TimeslotViewSet(viewsets.ModelViewSet):
     queryset = Timeslot.objects.all()
     serializer_class = TimeSlotSerializer
+    filter_backends = [SearchFilter]
+    search_fields = ['username']
