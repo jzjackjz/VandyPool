@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { GoogleLogin } from "react-google-login";
+import { GoogleLogin } from "@react-oauth/google";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./RiderSignUp.css";
@@ -11,13 +11,14 @@ function RiderSignUp() {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleGoogleRegister = (response) => {
+  const handleGoogleRegister = async (response) => {
+    console.log(response)
     if (response.error) {
       setError(`Google registration error: ${response.error}`);
       return;
     }
 
-    axios.post('/api/auth/google-register', { token: response.tokenId })
+    await axios.post('http://127.0.0.1:8000/auth/google-register', { token: response.credential })
       .then(res => {
         if (res.data.sessionToken) {
           localStorage.setItem('sessionToken', res.data.sessionToken);

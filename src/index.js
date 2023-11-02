@@ -18,31 +18,34 @@ import Connect from "./Components/Connect/Connect";
 import FlightInfo from "./Components/FlightInfo/FlightInfo";
 import LogOut from "./Components/LogIn/LogOut";
 import { UserProvider } from "./UserContext";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <CookiesProvider>
-    <BrowserRouter>
-      <UserProvider>
-        <NavBar />
-        <Routes>
-          <Route path="/" element={<App />} />
-          <Route path="/LogIn" element={<LogIn />} />
-          <Route path="/LogOut" element={<LogOut />} />
-          <Route path="/RiderSignUp" element={<RiderSignUp />} />
-          <Route path="/DriverSignUp" element={<DriverSignUp />} />
-          <Route path="/AccountInfo" element={<AccountInfo />} />
-          <Route path="/ConnectPassengers" element={<Connect />} />
-          <Route path="/FlightInfo" element={<AllFlights />} />
-          <Route path="/AddFlight" element={<FlightInfo />} />
-          <Route path="/CurrTimeslots" element={<DriverTimeslots />} />
-          <Route path="/NewTimeslot" element={<NewTimeslots />} />
-          <Route path="/ViewDrivers" element={<App />} />
-        </Routes>
-        <Footer />
-      </UserProvider>
-    </BrowserRouter>
-  </CookiesProvider>
+  <GoogleOAuthProvider clientId="889198131381-dhul247pghoitlna875j2t6kej68mllq.apps.googleusercontent.com">
+    <CookiesProvider>
+      <BrowserRouter>
+        <UserProvider>
+          <NavBar />
+          <Routes>
+            <Route path="/" element={<App />} />
+            <Route path="/LogIn" element={<LogIn />} />
+            <Route path="/LogOut" element={<LogOut />} />
+            <Route path="/RiderSignUp" element={<RiderSignUp />} />
+            <Route path="/DriverSignUp" element={<DriverSignUp />} />
+            <Route path="/AccountInfo" element={<AccountInfo />} />
+            <Route path="/ConnectPassengers" element={<Connect />} />
+            <Route path="/FlightInfo" element={<AllFlights />} />
+            <Route path="/AddFlight" element={<FlightInfo />} />
+            <Route path="/CurrTimeslots" element={<DriverTimeslots />} />
+            <Route path="/NewTimeslot" element={<NewTimeslots />} />
+            <Route path="/ViewDrivers" element={<App />} />
+          </Routes>
+          <Footer />
+        </UserProvider>
+      </BrowserRouter>
+    </CookiesProvider>
+  </GoogleOAuthProvider>
 );
 
 reportWebVitals();
