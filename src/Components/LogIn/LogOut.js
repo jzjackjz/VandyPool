@@ -3,11 +3,11 @@ import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
 
 function LogOut() {
-  const [token, setToken] = useCookies(['mytoken']);
+  const [token, setToken] = useCookies(['sessionToken']);
   let navigate = useNavigate();
 
   useEffect(() => {
-    setToken('mytoken', '');
+    setToken('sessionToken', '');
     navigate('/');
   }, [setToken, navigate]);
 

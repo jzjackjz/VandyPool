@@ -25,9 +25,9 @@ def google_register(request):
 
         if not User.objects.filter(email=email).exists():
             user = User.objects.create_user(username=email, email=email, first_name=first_name, last_name=last_name)
-            # You might want to create a profile or perform other setup steps here
+            token, created = Token.objects.get_or_create(user=user)
 
-            return Response({'status': 'success', 'user_id': user.id}, status=status.HTTP_201_CREATED)
+            return Response({'status': 'success', 'user_id': user.id, 'sessionToken': token.key}, status=status.HTTP_201_CREATED)
         else:
             return Response({'status': 'error', 'message': 'User already exists'}, status=status.HTTP_409_CONFLICT)
 

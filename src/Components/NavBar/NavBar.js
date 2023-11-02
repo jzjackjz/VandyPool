@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 import { useCookies } from "react-cookie";
 
 function NavBar() {
-  const [token] = useCookies(["mytoken"]);
+  const [token] = useCookies(["sessionToken"]);
 
-  const isLoggedIn = token["mytoken"] ? true : false;
+  const isLoggedIn = token["sessionToken"] ? true : false;
 
   return (
     <div>

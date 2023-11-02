@@ -11,34 +11,32 @@ const clientId = "889198131381-dhul247pghoitlna875j2t6kej68mllq.apps.googleuserc
 function LogIn() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [token, setToken] = useCookies(["mytoken"]);
+  const [cookies, setCookie, removeCookie] = useCookies(['sessionToken']);
   const [error, setError] = useState("");
   const { user, setNewUser } = useUser();
   let navigate = useNavigate();
 
   useEffect(() => {
-    if (token["mytoken"]) {
+    if (cookies.sessionToken) {
       navigate("/");
     }
-  }, [token, navigate]);
+  }, [cookies, navigate]);
 
-  const responseGoogle = () => {
-    APIService.LoginUser({
-      username: username,
-      password: password,
-    })
-      .then((resp) => {
-        if (resp.token) {
-          setToken("mytoken", resp.token);
-        } else {
-          setError("Incorrect username or password");
-        }
-      })
-      .catch((error) => {
-        console.error("An error occurred during login", error);
-        setError("An error occurred, please try again");
+  const responseGoogle = async () => {
+    try {
+      const resp = await APIService.LoginUser({
+        username: username,
+        password: password,
       });
-    setNewUser(username);
+      if (resp.token) {
+        setCookie('sessionToken', resp.token, { path: '/' });
+        navigate("/");
+      } else {
+        setError("Incorrect username or password");
+      }
+    } catch (error) {
+      setError("An error occurred, please try again");
+    }
   };
 
   return (
