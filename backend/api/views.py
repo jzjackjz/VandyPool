@@ -2,6 +2,7 @@ from django.shortcuts import redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import logout, authenticate, login
 from rest_framework import status, viewsets
+from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.decorators import api_view
@@ -11,10 +12,6 @@ from .serializers import FlightInformationSerializer, UserSerializer, TimeSlotSe
 from google.oauth2 import id_token
 from google.auth.transport import requests
 
-
-def logout_view(request):
-    logout(request)
-    return redirect("/")
 
 @api_view(['POST'])
 def google_register(request):
@@ -60,6 +57,17 @@ def google_login(request):
     except ValueError:
         return Response({'status': 'error', 'message': 'Invalid token'}, status=status.HTTP_400_BAD_REQUEST)
 from rest_framework.filters import SearchFilter
+
+def logout_view(request):
+    logout(request)
+    return redirect("/")
+
+
+
+def generate_token_for_user(user):
+    token, created = Token.objects.get_or_create(user=user)
+    return token.key
+
 
 class FlightInformationViewSet(viewsets.ModelViewSet):
 
