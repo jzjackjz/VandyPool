@@ -19,4 +19,4 @@ Our project was bulit with the following languages and frameworks:
 1. First clone the git repository
 2. Make sure to run ```npm install``` in order to merge all the React dependencies on your local device
 3. Run ```pip install -r requirements.txt``` to install all Django dependencies on local device
-4. Make sure you replace the client ID and client secret with the appropriate values in the .env files
+4. Copy the `.env.example` file to a new file named `.env` and fill in the placeholders with the appropriate client ID and client secret. You can do this by running ```cp .env.example .env```
