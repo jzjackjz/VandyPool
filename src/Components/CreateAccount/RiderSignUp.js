@@ -6,8 +6,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./RiderSignUp.css";
 
-const clientId =
-  "889198131381-dhul247pghoitlna875j2t6kej68mllq.apps.googleusercontent.com";
+const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
 function RiderSignUp() {
   const [error, setError] = useState("");
@@ -25,7 +24,7 @@ function RiderSignUp() {
         token: response.credential,
       });
       if (res.data.sessionToken) {
-        setCookie('sessionToken', res.data.sessionToken, { path: '/' });
+        setCookie('sessionToken', res.data.sessionToken, { path: '/', secure: true, httpOnly: true });
         axios.defaults.headers.common['Authorization'] = `Token ${res.data.sessionToken}`;
         navigate("/");
       } else {

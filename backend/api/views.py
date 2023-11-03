@@ -1,22 +1,24 @@
 from django.shortcuts import redirect
 from django.contrib.auth.models import User
-from django.contrib.auth import logout, authenticate, login
+from django.contrib.auth import logout
 from rest_framework import status, viewsets
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.decorators import api_view
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.filters import SearchFilter
 from .models import FlightInformation, Timeslot
 from .serializers import FlightInformationSerializer, UserSerializer, TimeSlotSerializer
 from google.oauth2 import id_token
 from google.auth.transport import requests
+from decouple import config
 
 
 @api_view(['POST'])
 def google_register(request):
     try:
-        idinfo = id_token.verify_oauth2_token(request.data['token'], requests.Request(), "889198131381-dhul247pghoitlna875j2t6kej68mllq.apps.googleusercontent.com")
+        idinfo = id_token.verify_oauth2_token(request.data['token'], requests.Request(), config('GOOGLE_CLIENT_ID'))
 
         userid = idinfo['sub']
         email = idinfo.get('email')
@@ -36,37 +38,26 @@ def google_register(request):
 
 @api_view(['POST'])
 def google_login(request):
-    token = request.data.get('token')
-    if not token:
-        return Response({'error': 'No token provided'}, status=status.HTTP_400_BAD_REQUEST)
-
     try:
-        idinfo = id_token.verify_oauth2_token(token, requests.Request(), "889198131381-dhul247pghoitlna875j2t6kej68mllq.apps.googleusercontent.com")
-
+        idinfo = id_token.verify_oauth2_token(request.data['token'], requests.Request(), config('GOOGLE_CLIENT_ID'))
+        userid = idinfo['sub']
         email = idinfo.get('email')
 
-        user = authenticate(request, email=email)
-
-        if user is not None:
-            login(request, user)
-            token = generate_token_for_user(user)
-            return Response({'status': 'success', 'token': token}, status=status.HTTP_200_OK)
-        else:
-            return Response({'status': 'error', 'message': 'No account found with the given email address'}, status=status.HTTP_404_NOT_FOUND)
+        try:
+            user = User.objects.get(email=email)
+            token, created = Token.objects.get_or_create(user=user)
+            return Response({'status': 'success', 'user_id': user.id, 'sessionToken': token.key}, status=status.HTTP_200_OK)
+        except User.DoesNotExist:
+            return Response({'status': 'error', 'message': 'User does not exist. Please sign up.'}, status=status.HTTP_404_NOT_FOUND)
 
     except ValueError:
         return Response({'status': 'error', 'message': 'Invalid token'}, status=status.HTTP_400_BAD_REQUEST)
-from rest_framework.filters import SearchFilter
 
 def logout_view(request):
     logout(request)
     return redirect("/")
 
 
-
-def generate_token_for_user(user):
-    token, created = Token.objects.get_or_create(user=user)
-    return token.key
 
 
 class FlightInformationViewSet(viewsets.ModelViewSet):

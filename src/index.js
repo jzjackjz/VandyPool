@@ -20,9 +20,11 @@ import LogOut from "./Components/LogIn/LogOut";
 import { UserProvider } from "./UserContext";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 
+const googleClientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <GoogleOAuthProvider clientId="889198131381-dhul247pghoitlna875j2t6kej68mllq.apps.googleusercontent.com">
+  <GoogleOAuthProvider clientId={googleClientId}>
     <CookiesProvider>
       <BrowserRouter>
         <UserProvider>
