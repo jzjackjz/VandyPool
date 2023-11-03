@@ -75,3 +75,10 @@
   .register-container button:hover {
     background-color: rgb(205, 190, 102);
   }
+
+  .error-message {
+    color: #ff4646;
+    padding: 15px;
+    font-size: 16px;
+    width: 100%;
+  }
