@@ -4,7 +4,7 @@ export default class APIService {
             'method':'POST',
             headers: {
                 'Content-Type':'application/json',
-                'Authorization': `Token ${token['mytoken']}`
+                'Authorization': `Token ${token['sessionToken']}`
             },
             body:JSON.stringify(body)
 

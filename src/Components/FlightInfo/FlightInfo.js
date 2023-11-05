@@ -10,7 +10,7 @@ function FlightInfo() {
     const [date, setDate] = useState('');
     const [dropoff, setDropoff] = useState('');
     const [airline, setAirline] = useState('');
-    const [token] = useCookies(['mytoken']);
+    const [token] = useCookies(['sessionToken']);
     const navigate = useNavigate();
   
     const handleSubmit = () => {
@@ -20,7 +20,7 @@ function FlightInfo() {
         flight_date: date,
         dropoff_point: dropoff,
         airline: airline
-      }, token['mytoken'])
+      }, token['sessionToken'])
       .then(resp => console.log(resp))
       navigate("/FlightInfo")
     };

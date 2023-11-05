@@ -29,7 +29,14 @@ def google_register(request):
             user = User.objects.create_user(username=email, email=email, first_name=first_name, last_name=last_name)
             token, created = Token.objects.get_or_create(user=user)
 
-            return Response({'status': 'success', 'user_id': user.id, 'sessionToken': token.key}, status=status.HTTP_201_CREATED)
+            response = Response({'status': 'success', 'user_id': user.id, 'sessionToken': token.key}, status=status.HTTP_201_CREATED)
+            response.set_cookie(
+                'sessionToken',
+                token.key,
+                httponly=True,
+                secure=True
+            )
+            return response
         else:
             return Response({'status': 'error', 'message': 'User already exists'}, status=status.HTTP_409_CONFLICT)
 
@@ -53,17 +60,23 @@ def google_login(request):
     except ValueError:
         return Response({'status': 'error', 'message': 'Invalid token'}, status=status.HTTP_400_BAD_REQUEST)
 
+@api_view(['POST'])
 def logout_view(request):
-    logout(request)
-    return redirect("/")
+    request.user.auth_token.delete()
+    
+    response = Response({"status": "success", "message": "Logged out successfully"})
+    
+    response.delete_cookie('sessionToken')
+    
+    response['Location'] = '/'
+    return response
 
 
 
 
 class FlightInformationViewSet(viewsets.ModelViewSet):
-
-    #permission_classes = [IsAuthenticated]
-    #authentication_classes = (TokenAuthentication,)
+    permission_classes = [IsAuthenticated]
+    authentication_classes = (TokenAuthentication,)
 
     queryset = FlightInformation.objects.all()
     serializer_class = FlightInformationSerializer
