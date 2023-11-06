@@ -5,11 +5,14 @@ import axios from "axios";
 import { Trash } from "react-bootstrap-icons";
 
 function AllFlights() {
-    const [flights, setFlights] = useState([])
+    const [flights, setFlights] = useState([]);
+    const headers = {
+      'Authorization': `Token ${localStorage.getItem('sessionToken')}`
+    };
 
     async function fetchFlights() {
         try {
-            const searchResponse = await axios.get("http://127.0.0.1:8000/flights");
+            const searchResponse = await axios.get("http://127.0.0.1:8000/flights", { headers });
             setFlights(searchResponse.data);
         } catch(error) {
             alert(
@@ -20,7 +23,7 @@ function AllFlights() {
     async function handleDelete(id) {
         try {
           const searchResponse = await axios.delete(
-            "http://127.0.0.1:8000/flights/" + id + "/"
+            "http://127.0.0.1:8000/flights/" + id + "/", { headers }
           );
           window.location.reload();
         } catch (error) {

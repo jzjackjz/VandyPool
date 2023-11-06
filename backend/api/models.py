@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from django.conf import settings
 from django.db import models
 
 
@@ -7,6 +8,8 @@ class UserProfile(models.Model):
     google_id = models.CharField(max_length=100, unique=True)
 
 class FlightInformation(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    
     ride_type = models.CharField(max_length=10)
     flight_time = models.TimeField()
     flight_date = models.DateField()

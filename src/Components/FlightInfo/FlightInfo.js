@@ -22,6 +22,8 @@ function FlightInfo() {
         airline: airline
       }, sessionToken)
       .then(resp => console.log(resp))
+      .catch(error => console.error('Error:', error));
+      
       navigate("/FlightInfo")
     };
   

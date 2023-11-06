@@ -68,7 +68,13 @@ class FlightInformationViewSet(viewsets.ModelViewSet):
 
     queryset = FlightInformation.objects.all()
     serializer_class = FlightInformationSerializer
-    
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+    def get_queryset(self):
+        user = self.request.user
+        return FlightInformation.objects.filter(user=user)
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
