@@ -3,31 +3,29 @@ import "./NewTimeslots.css";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useUser } from "../../UserContext";
+import APIService from "../../APIService";
 
 function NewTimeslots() {
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [spotsAvail, setSpotsAvail] = useState("");
   const navigate = useNavigate();
-  const user = useUser();
 
   async function handleSubmit() {
-    try {
-      const searchResponse = await axios.post(
-        "http://127.0.0.1:8000/timeslot/",
-        {
-          date: date,
-          time: time,
-          space_available: spotsAvail,
-          username: user.user,
-        }
-      );
-      navigate("/CurrTimeslots");
-    } catch (error) {
-      alert(
-        "Something went wrong when creating a new timeslot, please try again"
-      );
-    }
+    const sessionToken = localStorage.getItem("sessionToken");
+
+    APIService.InsertTimeslot(
+      {
+        date: date,
+        time: time,
+        space_available: spotsAvail,
+      },
+      sessionToken
+    )
+      .then((resp) => console.log(resp))
+      .catch((error) => console.error("Error:", error));
+
+    navigate("/CurrTimeslots");
   }
 
   return (

@@ -16,33 +16,43 @@ import DriverTimeslots from "./Components/DriverTimeslots/DriverTimeslots";
 import NewTimeslots from "./Components/DriverTimeslots/NewTimeslots";
 import Connect from "./Components/Connect/Connect";
 import FlightInfo from "./Components/FlightInfo/FlightInfo";
+import ViewDrivers from "./Components/ViewDrivers/ViewDrivers";
 import LogOut from "./Components/LogIn/LogOut";
 import { UserProvider } from "./UserContext";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import { AuthProvider } from "./AuthContext";
+
+const googleClientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
+console.log(googleClientId);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <CookiesProvider>
-    <BrowserRouter>
-      <UserProvider>
-        <NavBar />
-        <Routes>
-          <Route path="/" element={<App />} />
-          <Route path="/LogIn" element={<LogIn />} />
-          <Route path="/LogOut" element={<LogOut />} />
-          <Route path="/RiderSignUp" element={<RiderSignUp />} />
-          <Route path="/DriverSignUp" element={<DriverSignUp />} />
-          <Route path="/AccountInfo" element={<AccountInfo />} />
-          <Route path="/ConnectPassengers" element={<Connect />} />
-          <Route path="/FlightInfo" element={<AllFlights />} />
-          <Route path="/AddFlight" element={<FlightInfo />} />
-          <Route path="/CurrTimeslots" element={<DriverTimeslots />} />
-          <Route path="/NewTimeslot" element={<NewTimeslots />} />
-          <Route path="/ViewDrivers" element={<App />} />
-        </Routes>
-        <Footer />
-      </UserProvider>
-    </BrowserRouter>
-  </CookiesProvider>
+  <AuthProvider>
+    <GoogleOAuthProvider clientId="889198131381-dhul247pghoitlna875j2t6kej68mllq.apps.googleusercontent.com">
+      <CookiesProvider>
+        <BrowserRouter>
+          <UserProvider>
+            <NavBar />
+            <Routes>
+              <Route path="/" element={<App />} />
+              <Route path="/LogIn" element={<LogIn />} />
+              <Route path="/LogOut" element={<LogOut />} />
+              <Route path="/RiderSignUp" element={<RiderSignUp />} />
+              <Route path="/DriverSignUp" element={<DriverSignUp />} />
+              <Route path="/AccountInfo" element={<AccountInfo />} />
+              <Route path="/ConnectPassengers" element={<Connect />} />
+              <Route path="/FlightInfo" element={<AllFlights />} />
+              <Route path="/AddFlight" element={<FlightInfo />} />
+              <Route path="/CurrTimeslots" element={<DriverTimeslots />} />
+              <Route path="/NewTimeslot" element={<NewTimeslots />} />
+              <Route path="/ViewDrivers" element={<ViewDrivers />} />
+            </Routes>
+            <Footer />
+          </UserProvider>
+        </BrowserRouter>
+      </CookiesProvider>
+    </GoogleOAuthProvider>
+  </AuthProvider>
 );
 
 reportWebVitals();

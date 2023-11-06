@@ -1,60 +1,60 @@
 import React, { useState, useEffect } from "react";
-import "./LogIn.css";
-import APIService from "../../APIService";
-import { useCookies } from "react-cookie";
+import { GoogleLogin } from "@react-oauth/google";
 import { useNavigate } from "react-router-dom";
-import { useUser } from "../../UserContext";
+import { useAuth } from "../../AuthContext";
+import axios from "axios";
+import "./LogIn.css";
+
+const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
 function LogIn() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [token, setToken] = useCookies(["mytoken"]);
   const [error, setError] = useState("");
-  const { user, setNewUser } = useUser();
+  const { setIsAuthenticated } = useAuth();
   let navigate = useNavigate();
 
   useEffect(() => {
-    if (token["mytoken"]) {
+    const token = localStorage.getItem('sessionToken');
+    if (token) {
+      axios.defaults.headers.common['Authorization'] = `Token ${token}`;
       navigate("/");
     }
-  }, [token, navigate]);
+  }, [navigate]);
 
-  const handleSubmit = () => {
-    APIService.LoginUser({
-      username: username,
-      password: password,
-    })
-      .then((resp) => {
-        if (resp.token) {
-          setToken("mytoken", resp.token);
-        } else {
-          setError("Incorrect username or password");
-        }
-      })
-      .catch((error) => {
-        console.error("An error occurred during login", error);
-        setError("An error occurred, please try again");
+  const handleGoogleLogin = async (response) => {
+    console.log('Login response:', response);
+    if (response.error) {
+      setError(`Google login error: ${response.error}`);
+      return;
+    }
+
+    try {
+      const res = await axios.post("http://127.0.0.1:8000/auth/google-login", {
+        token: response.credential,
       });
-    setNewUser(username);
+      if (res.data.sessionToken) {
+        localStorage.setItem('sessionToken', res.data.sessionToken);
+        axios.defaults.headers.common['Authorization'] = `Token ${res.data.sessionToken}`;
+        setIsAuthenticated(true);
+        navigate("/");
+      } else {
+        setError('Login failed: No session token returned from backend');
+      }
+    } catch (error) {
+      setError(`Error during Google login: ${error.response.data.message}`);
+    }
   };
+
 
   return (
     <div className="log-in-container">
       <h1>Log In</h1>
-      {error && <p>{error}</p>}
-      <input
-        type="text"
-        placeholder="Username (Email)"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
+      <GoogleLogin
+        clientId={clientId}
+        buttonText="Log in with Google"
+        onSuccess={handleGoogleLogin}
+        onFailure={handleGoogleLogin}
       />
-      <input
-        type="Password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button onClick={handleSubmit}>Submit</button>
+      {error && <div className="error-message">{error}</div>}
       <div className="register-container">
         <p>If you don't have an account, please</p>
         <button className="register-button" onClick={() => navigate("/")}>
@@ -64,4 +64,5 @@ function LogIn() {
     </div>
   );
 }
+
 export default LogIn;
