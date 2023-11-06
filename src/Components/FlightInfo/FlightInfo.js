@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import "./FlightInfo.css";
 import APIService from '../../APIService';
-import { useCookies } from "react-cookie";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function FlightInfo() {
     const [option, setOption] = useState('');  
@@ -10,17 +9,18 @@ function FlightInfo() {
     const [date, setDate] = useState('');
     const [dropoff, setDropoff] = useState('');
     const [airline, setAirline] = useState('');
-    const [token] = useCookies(['sessionToken']);
     const navigate = useNavigate();
   
     const handleSubmit = () => {
+      const sessionToken = localStorage.getItem('sessionToken');
+
       APIService.InsertFlightInformation({
         ride_type: option,
         flight_time: time,
         flight_date: date,
         dropoff_point: dropoff,
         airline: airline
-      }, token['sessionToken'])
+      }, sessionToken)
       .then(resp => console.log(resp))
       navigate("/FlightInfo")
     };

@@ -1,8 +1,8 @@
 import React from "react";
 import { useState } from "react";
 import { GoogleLogin } from "@react-oauth/google";
-import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../AuthContext";
 import axios from "axios";
 import "./RiderSignUp.css";
 
@@ -10,7 +10,7 @@ const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
 function RiderSignUp() {
   const [error, setError] = useState("");
-  const [cookies, setCookie] = useCookies(['sessionToken']);
+  const { setIsAuthenticated } = useAuth();
   const navigate = useNavigate();
 
   const handleGoogleRegister = async (response) => {
@@ -24,8 +24,9 @@ function RiderSignUp() {
         token: response.credential,
       });
       if (res.data.sessionToken) {
-        setCookie('sessionToken', res.data.sessionToken, { path: '/', secure: true, httpOnly: true });
+        localStorage.setItem('sessionToken', res.data.sessionToken);
         axios.defaults.headers.common['Authorization'] = `Token ${res.data.sessionToken}`;
+        setIsAuthenticated(true);
         navigate("/");
       } else {
         setError('Registration failed: No session token returned from backend');
@@ -45,6 +46,7 @@ function RiderSignUp() {
         onFailure={handleGoogleRegister}
         text="Sign Up With Google"
       />
+      {error && <div className="error-message">{error}</div>}
     </div>
   );
 }

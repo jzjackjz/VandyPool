@@ -1,16 +1,20 @@
 import { useEffect } from 'react';
-import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../AuthContext';
+import axios from 'axios';
 
 function LogOut() {
-  const [token, setToken] = useCookies(['sessionToken']);
+  const { setIsAuthenticated } = useAuth();
   let navigate = useNavigate();
 
   useEffect(() => {
-    setToken('sessionToken', '');
-    navigate('/');
-  }, [setToken, navigate]);
+    localStorage.removeItem('sessionToken')
+    delete axios.defaults.headers.common['Authorization'];
 
+    navigate('/');
+  }, [navigate]);
+
+  setIsAuthenticated(false);
   return null;
 }
 

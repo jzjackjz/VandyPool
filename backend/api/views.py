@@ -29,14 +29,7 @@ def google_register(request):
             user = User.objects.create_user(username=email, email=email, first_name=first_name, last_name=last_name)
             token, created = Token.objects.get_or_create(user=user)
 
-            response = Response({'status': 'success', 'user_id': user.id, 'sessionToken': token.key}, status=status.HTTP_201_CREATED)
-            response.set_cookie(
-                'sessionToken',
-                token.key,
-                httponly=True,
-                secure=True
-            )
-            return response
+            return Response({'status': 'success', 'user_id': user.id, 'sessionToken': token.key}, status=status.HTTP_201_CREATED)
         else:
             return Response({'status': 'error', 'message': 'User already exists'}, status=status.HTTP_409_CONFLICT)
 
@@ -64,12 +57,7 @@ def google_login(request):
 def logout_view(request):
     request.user.auth_token.delete()
     
-    response = Response({"status": "success", "message": "Logged out successfully"})
-    
-    response.delete_cookie('sessionToken')
-    
-    response['Location'] = '/'
-    return response
+    return Response({"status": "success", "message": "Logged out successfully"})
 
 
 

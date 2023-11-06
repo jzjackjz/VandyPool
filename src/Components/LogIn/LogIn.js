@@ -1,22 +1,24 @@
 import React, { useState, useEffect } from "react";
-import { useCookies } from "react-cookie";
 import { GoogleLogin } from "@react-oauth/google";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../AuthContext";
 import axios from "axios";
 import "./LogIn.css";
 
 const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
 function LogIn() {
-  const [cookies, setCookie, removeCookie] = useCookies(['sessionToken']);
   const [error, setError] = useState("");
+  const { setIsAuthenticated } = useAuth();
   let navigate = useNavigate();
 
   useEffect(() => {
-    if (cookies.sessionToken) {
+    const token = localStorage.getItem('sessionToken');
+    if (token) {
+      axios.defaults.headers.common['Authorization'] = `Token ${token}`;
       navigate("/");
     }
-  }, [cookies, navigate]);
+  }, [navigate]);
 
   const handleGoogleLogin = async (response) => {
     console.log('Login response:', response);
@@ -30,8 +32,9 @@ function LogIn() {
         token: response.credential,
       });
       if (res.data.sessionToken) {
-        setCookie('sessionToken', res.data.sessionToken, { path: '/', secure: true, httpOnly: true });
+        localStorage.setItem('sessionToken', res.data.sessionToken);
         axios.defaults.headers.common['Authorization'] = `Token ${res.data.sessionToken}`;
+        setIsAuthenticated(true);
         navigate("/");
       } else {
         setError('Login failed: No session token returned from backend');
