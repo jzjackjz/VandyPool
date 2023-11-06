@@ -1,6 +1,6 @@
 import "./AccountInfo.css";
 import React from "react";
-import pfp from "./DefaultProfile.png"
+import userImage from "./DefaultProfile.png"
 import { Link } from "react-router-dom";
 
 function AccountInfo() {
@@ -14,7 +14,11 @@ function AccountInfo() {
         </Link>
         <field>
           <field-name>Profile Picture</field-name>
-          <field-value>Placeholder</field-value>
+          <field-value><img
+              src={userImage} /* Replace with the user's profile picture URL */
+              alt="User Profile"
+              className="profile-picture" /* Apply the circular styling */
+            /></field-value>
         </field>
         <field>
           <field-name>Name</field-name>
