@@ -36,15 +36,6 @@ function AccountInfo() {
         </field>
       </bigbox>
 
-      <bigbox>
-        <Link to="/DriverSignUp">
-          <button><subtitle>Password</subtitle>{">"}</button>
-        </Link>
-        <field>
-          <field-name>Password</field-name>
-          <field-value>********</field-value>
-        </field>
-      </bigbox>
     </div>
   );
 }
