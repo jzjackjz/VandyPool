@@ -81,7 +81,14 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
 
 class TimeslotViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated]
+    authentication_classes = (TokenAuthentication,)
+
     queryset = Timeslot.objects.all()
     serializer_class = TimeSlotSerializer
-    filter_backends = [SearchFilter]
-    search_fields = ['username']
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+    def get_queryset(self):
+        user = self.request.user
+        return Timeslot.objects.filter(user=user)

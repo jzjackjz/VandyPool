@@ -23,4 +23,4 @@ class Timeslot(models.Model):
     date = models.DateField()
     time = models.TimeField()
     space_available = models.IntegerField()
-    username = models.CharField(max_length=100, default=None)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default=None)
