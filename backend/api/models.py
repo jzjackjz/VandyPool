@@ -26,6 +26,7 @@ class Timeslot(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default=None)
 
 class Driver(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default=None)
     firstName = models.CharField(max_length = 50)
     lastName = models.CharField(max_length = 50)
     carModel = models.CharField(max_length = 50)

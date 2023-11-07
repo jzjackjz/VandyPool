@@ -94,5 +94,14 @@ class TimeslotViewSet(viewsets.ModelViewSet):
         return Timeslot.objects.filter(user=user)
     
 class DriverViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated]
+    authentication_classes = (TokenAuthentication,)
+
     queryset = Driver.objects.all()
     serializer_class = DriverSerializer
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+    def get_queryset(self):
+        user = self.request.user
+        return Driver.objects.filter(user=user)

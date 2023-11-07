@@ -8,6 +8,9 @@ import axios from "axios";
 function AccountInfo() {
   const navigate = useNavigate();
   const [driverInfo, setDriverInfo] = useState([]);
+  const headers = {
+    Authorization: `Token ${localStorage.getItem("sessionToken")}`,
+  };
 
   const handleSubmit = () => {
     navigate("/DriverInfo");
@@ -16,14 +19,15 @@ function AccountInfo() {
   useEffect(() => {
     async function driverCheck() {
       try {
-        const driverResponse = await axios.get("http://127.0.0.1:8000/driver/");
+        const driverResponse = await axios.get(
+          "http://127.0.0.1:8000/driver/",
+          { headers }
+        );
         const length = driverResponse.data.length;
-        console.log(length);
         if (length >= 1) {
           const index = length - 1;
           console.log(index);
           setDriverInfo(driverResponse.data[index]);
-          console.log(driverResponse.data[index]);
         }
       } catch (error) {
         console.log(error);

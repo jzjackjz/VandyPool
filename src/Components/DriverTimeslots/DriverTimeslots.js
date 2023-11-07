@@ -32,7 +32,9 @@ function DriverTimeslots() {
       );
       window.location.reload();
     } catch (error) {
-      alert("Something went wrong when deleting the timeslot, please try again");
+      alert(
+        "Something went wrong when deleting the timeslot, please try again"
+      );
     }
   }
 
@@ -71,7 +73,7 @@ function DriverTimeslots() {
             ))}
           </tbody>
         </table>
-        </div>
+      </div>
       <div className="buttons">
         <button>
           <Link to="/NewTimeslot">+ New Timeslot</Link>

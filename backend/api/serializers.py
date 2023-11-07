@@ -38,6 +38,8 @@ class TimeSlotSerializer(serializers.ModelSerializer):
              fields = '__all__'
 
 class DriverSerializer(serializers.ModelSerializer):
+        user = serializers.HiddenField(default=serializers.CurrentUserDefault())
+
         class Meta:
              model = Driver
              fields = '__all__'

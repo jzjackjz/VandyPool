@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../AuthContext";
 import axios from "axios";
 import "./DriverSignUp.css";
+import APIService from "../../APIService";
 
 function DriverSignUp() {
   const [firstName, setFirstName] = useState("");
@@ -13,18 +14,22 @@ function DriverSignUp() {
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
-    try {
-      const res = await axios.post("http://127.0.0.1:8000/driver/", {
+    const sessionToken = localStorage.getItem("sessionToken");
+    APIService.InsertDriverInfo(
+      {
         firstName: firstName,
         lastName: lastName,
         carModel: carModel,
         carColor: carColor,
         licensePlate: licensePlate,
-      });
-      navigate("/AccountInfo");
-    } catch (error) {
-      console.log("error");
-    }
+      },
+      sessionToken
+    )
+      .then((resp) => {
+        console.log(resp);
+        navigate("/AccountInfo", { replace: true });
+      })
+      .catch((error) => console.error("Error:", error));
   };
 
   return (
