@@ -10,10 +10,7 @@ function HomePage() {
         <div className="Title">Save Money On Rides to the Airport</div>
         <div className="SubTitle">
           <button className="Box">
-            <Link to="/RiderSignUp">Sign up to ride</Link>
-          </button>
-          <button className="Box">
-            <Link to="/DriverSignUp">Sign up to drive</Link>
+            <Link to="/RiderSignUp">Register for an account here</Link>
           </button>
         </div>
       </div>

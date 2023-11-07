@@ -12,6 +12,13 @@ function RiderSignUp() {
   const [error, setError] = useState("");
   const { setIsAuthenticated } = useAuth();
   const navigate = useNavigate();
+  const [phoneNum, setPhoneNum] = useState("");
+  const [success, setSuccess] = useState("");
+
+  const handleSubmit = () => {
+    //handle API add phone shit
+    navigate("/AccountInfo");
+  };
 
   const handleGoogleRegister = async (response) => {
     if (response.error) {
@@ -32,7 +39,7 @@ function RiderSignUp() {
           "Authorization"
         ] = `Token ${res.data.sessionToken}`;
         setIsAuthenticated(true);
-        navigate("/");
+        setSuccess("Account Created! Please enter a valid US number below");
       } else {
         setError("Registration failed: No session token returned from backend");
       }
@@ -45,15 +52,20 @@ function RiderSignUp() {
 
   return (
     <div className="rider-signup-container">
-      <h1>Rider Registration</h1>
+      <h1>Register For An Account</h1>
       <p>Please use your Vanderbilt associated email</p>
-      <GoogleLogin
-        clientId={clientId}
-        onSuccess={handleGoogleRegister}
-        onFailure={handleGoogleRegister}
-        text="Sign Up With Google"
-      />
+      <GoogleLogin clientId={clientId} onSuccess={handleGoogleRegister} />
       {error && <div className="error-message">{error}</div>}
+      {success && <div>{success}</div>}
+      {success && (
+        <input
+          type="text"
+          placeholder="Phone Number"
+          value={phoneNum}
+          onChange={(e) => setPhoneNum(e.target.value)}
+        />
+      )}
+      {success && <button onClick={handleSubmit}>Submit</button>}
     </div>
   );
 }

@@ -1,24 +1,29 @@
 import "./AccountInfo.css";
 import React from "react";
-import userImage from "./DefaultProfile.png"
+import userImage from "./DefaultProfile.png";
 import { Link } from "react-router-dom";
 
 function AccountInfo() {
   return (
     <div className="account_info_container">
-      <h1>Account Information</h1> 
+      <h1>Account Information</h1>
 
       <bigbox>
         <Link to="/EditBasicInfo">
-          <button><subtitle>Basic Information</subtitle>{">"}</button>
+          <button>
+            <subtitle>Basic Information</subtitle>
+            {">"}
+          </button>
         </Link>
         <field>
           <field-name>Profile Picture</field-name>
-          <field-value><img
+          <field-value>
+            <img
               src={userImage} /* Replace with the user's profile picture URL */
               alt="User Profile"
               className="profile-picture" /* Apply the circular styling */
-            /></field-value>
+            />
+          </field-value>
         </field>
         <field>
           <field-name>Name</field-name>
@@ -28,7 +33,10 @@ function AccountInfo() {
 
       <bigbox>
         <Link to="/DriverSignUp">
-          <button><subtitle>Contact Information</subtitle>{">"}</button>
+          <button>
+            <subtitle>Contact Information</subtitle>
+            {">"}
+          </button>
         </Link>
         <field>
           <field-name>Email</field-name>
@@ -40,6 +48,7 @@ function AccountInfo() {
         </field>
       </bigbox>
 
+      <button>Click Here To Register As A Driver</button>
     </div>
   );
 }
