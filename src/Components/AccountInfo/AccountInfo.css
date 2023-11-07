@@ -61,7 +61,12 @@
   }
 
 
-  
+  .profile-picture {
+    width: 100px; /* Set the desired width and height for the circular image */
+    height: 100px;
+    border-radius: 50%; /* Make the image circular */
+    object-fit: cover; /* Ensure the image covers the circular container */
+  }
   
   .account_info_container button {
     display: flex;
@@ -87,3 +92,37 @@
   .account_info_container button:hover {
     background-color: rgb(238, 237, 237); /* Darker gray on hover */
   }
+
+  .account_info_container .name-input {
+    font-size: 16px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 95%;
+    margin-bottom: 10px;
+  }
+
+  /* Styling for the buttons */
+.account_info_container .save-button {
+  background-color: #4772a7; /* Green color for save button */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.account_info_container .cancel-button {
+  background-color: #6d6d6d; 
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+.account_info_container .button-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px; /* Adjust the margin as needed */
+}
