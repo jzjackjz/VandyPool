@@ -1,8 +1,8 @@
 import React from 'react';
 import { render, fireEvent, waitFor, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import FlightInfo from './FlightInfo';
 import APIService from '../../APIService';
+import FlightInfo from './FlightInfo';
 
 // Mock APIService
 jest.mock('../../APIService', () => ({

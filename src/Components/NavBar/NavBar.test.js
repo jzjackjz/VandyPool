@@ -1,8 +1,8 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import NavBar from './NavBar';
 import { useAuth } from '../../AuthContext';
+import NavBar from './NavBar';
 
 // Mock authentication
 jest.mock('../../AuthContext', () => ({
