@@ -18,22 +18,22 @@ function NavBar() {
           {isAuthenticated && (
             <>
               <li>
-                <Link to="/AccountInfo">Account Info</Link>
+                <Link to="/AccountInfo" className="nav-button">My Account</Link>
               </li>
               <li>
-                <Link to="/ConnectPassengers">Connect With Passengers</Link>
+                <Link to="/ConnectPassengers" className="nav-button">Connect with Passengers</Link>
               </li>
               <li>
-                <Link to="/FlightInfo">Flight Info</Link>
+                <Link to="/FlightInfo" className="nav-button">My Flights</Link>
               </li>
               <li>
-                <Link to="/ViewDrivers">View Drivers</Link>
+                <Link to="/ViewDrivers" className="nav-button">Drivers</Link>
               </li>
               <li>
-                <Link to="/CurrTimeslots">View Current Timeslots</Link>
+                <Link to="/CurrTimeslots" className="nav-button">My Timeslots</Link>
               </li>
               <li>
-                <Link to="/LogOut">Log Out</Link>
+                <Link to="/LogOut" className="nav-button">Log Out</Link>
               </li>
             </>
           )}
