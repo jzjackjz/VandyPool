@@ -18,6 +18,7 @@ import Connect from "./Components/Connect/Connect";
 import FlightInfo from "./Components/FlightInfo/FlightInfo";
 import ViewDrivers from "./Components/ViewDrivers/ViewDrivers";
 import LogOut from "./Components/LogIn/LogOut";
+import EditBasicInfo from "./Components/AccountInfo/EditBasicInfo";
 import { UserProvider } from "./UserContext";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { AuthProvider } from "./AuthContext";
@@ -48,6 +49,7 @@ root.render(
               <Route path="/CurrTimeslots" element={<DriverTimeslots />} />
               <Route path="/NewTimeslot" element={<NewTimeslots />} />
               <Route path="/ViewDrivers" element={<ViewDrivers />} />
+              <Route path="/EditBasicInfo" element={<EditBasicInfo />} />
             </Routes>
             <Footer />
           </UserProvider>
