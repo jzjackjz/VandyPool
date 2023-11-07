@@ -1,9 +1,11 @@
 import "./AccountInfo.css";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 
 function EditBasicInfo(){
+    const navigate = useNavigate();
+
     const [firstName, setFirstName] = useState("First");
     const [lastName, setLastName] = useState("Last");
 
@@ -26,6 +28,8 @@ function EditBasicInfo(){
         setFirstName(editedFirstName);
         setLastName(editedLastName);
 
+        navigate("/AccountInfo");
+
         // TO-DO: Update in the database
     };
 
@@ -34,6 +38,8 @@ function EditBasicInfo(){
         // Reset the edited first name and last name to the current values when the user clicks Cancel
         setEditedFirstName(firstName);
         setEditedLastName(lastName);
+
+        navigate("/AccountInfo");
     };
 
     return (
@@ -65,11 +71,11 @@ function EditBasicInfo(){
             </bigbox>
             <div className="button-container">
                 
-                <Link to="/AccountInfo">
-                    <button className="cancel-button" onClick={handleCancel}>
-                        Cancel
-                    </button>
-                </Link>
+                
+                <button className="cancel-button" onClick={handleCancel}>
+                    Cancel
+                </button>
+                
                 <button className="save-button" onClick={handleSave}>
                     Save
                 </button>
