@@ -17,8 +17,14 @@ function AccountInfo() {
     async function driverCheck() {
       try {
         const driverResponse = await axios.get("http://127.0.0.1:8000/driver/");
-        setDriverInfo(driverResponse.data);
-        console.log(driverResponse.data);
+        const length = driverResponse.data.length;
+        console.log(length);
+        if (length >= 1) {
+          const index = length - 1;
+          console.log(index);
+          setDriverInfo(driverResponse.data[index]);
+          console.log(driverResponse.data[index]);
+        }
       } catch (error) {
         console.log(error);
       }
@@ -69,6 +75,27 @@ function AccountInfo() {
           <field-value>(615) 000-0000</field-value>
         </field>
       </bigbox>
+
+      {driverInfo.length !== 0 && (
+        <bigbox>
+          <button>
+            <subtitle>Driver Information</subtitle>
+            {">"}
+          </button>
+          <field>
+            <field-name>Car Model</field-name>
+            <field-value>{driverInfo.carModel}</field-value>
+          </field>
+          <field>
+            <field-name>Car Color</field-name>
+            <field-value>{driverInfo.carColor}</field-value>
+          </field>
+          <field>
+            <field-name>License Plate</field-name>
+            <field-value>{driverInfo.licensePlate}</field-value>
+          </field>
+        </bigbox>
+      )}
 
       {driverInfo.length === 0 && (
         <button onClick={handleSubmit}>

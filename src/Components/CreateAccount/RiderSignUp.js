@@ -54,7 +54,11 @@ function RiderSignUp() {
     <div className="rider-signup-container">
       <h1>Register For An Account</h1>
       <p>Please use your Vanderbilt associated email</p>
-      <GoogleLogin clientId={clientId} onSuccess={handleGoogleRegister} />
+      <GoogleLogin
+        clientId={clientId}
+        onSuccess={handleGoogleRegister}
+        width={350}
+      />
       {error && <div className="error-message">{error}</div>}
       {success && <div>{success}</div>}
       {success && (
