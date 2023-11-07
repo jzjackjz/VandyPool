@@ -26,6 +26,7 @@
     padding: 13px;
     justify-content: space-between; 
     display: inline;
+    flex-direction: column;
   }
   
   .account_info_container subtitle {
@@ -124,6 +125,8 @@
 }
 .account_info_container .button-container {
   display: flex;
+  flex-direction: row;
+  gap: 10px;
   justify-content: space-between;
   margin-top: 20px; /* Adjust the margin as needed */
 }
