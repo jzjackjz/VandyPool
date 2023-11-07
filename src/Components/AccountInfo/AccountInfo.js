@@ -1,15 +1,31 @@
 import "./AccountInfo.css";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import userImage from "./DefaultProfile.png";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function AccountInfo() {
   const navigate = useNavigate();
+  const [driverInfo, setDriverInfo] = useState([]);
 
   const handleSubmit = () => {
     navigate("/DriverInfo");
   };
+
+  useEffect(() => {
+    async function driverCheck() {
+      try {
+        const driverResponse = await axios.get("http://127.0.0.1:8000/driver/");
+        setDriverInfo(driverResponse.data);
+        console.log(driverResponse.data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    driverCheck();
+  }, []);
+
   return (
     <div className="account_info_container">
       <h1>Account Information</h1>
@@ -54,7 +70,11 @@ function AccountInfo() {
         </field>
       </bigbox>
 
-      <button onClick={handleSubmit}>Click Here To Register As A Driver</button>
+      {driverInfo.length === 0 && (
+        <button onClick={handleSubmit}>
+          Click Here To Register As A Driver
+        </button>
+      )}
     </div>
   );
 }
