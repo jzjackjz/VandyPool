@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from rest_framework.authtoken.views import Token
 from django.contrib.auth.models import User
-from .models import FlightInformation, Timeslot, UserProfile
+from .models import FlightInformation, Timeslot, UserProfile, Driver
 
 
 class FlightInformationSerializer(serializers.ModelSerializer):
@@ -37,3 +37,8 @@ class TimeSlotSerializer(serializers.ModelSerializer):
              model = Timeslot
              fields = '__all__'
 
+class DriverSerializer(serializers.ModelSerializer):
+        class Meta:
+             model = Driver
+             fields = '__all__'
+     

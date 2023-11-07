@@ -24,3 +24,10 @@ class Timeslot(models.Model):
     time = models.TimeField()
     space_available = models.IntegerField()
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default=None)
+
+class Driver(models.Model):
+    firstName = models.CharField(max_length = 50)
+    lastName = models.CharField(max_length = 50)
+    carModel = models.CharField(max_length = 50)
+    carColor = models.CharField(max_length = 50)
+    licensePlate = models.CharField(max_length = 50)
