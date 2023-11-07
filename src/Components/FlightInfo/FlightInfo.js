@@ -21,10 +21,12 @@ function FlightInfo() {
         dropoff_point: dropoff,
         airline: airline
       }, sessionToken)
-      .then(resp => console.log(resp))
+      .then((resp) => {
+        console.log(resp);
+        navigate("/FlightInfo", { replace: true });
+      })
       .catch(error => console.error('Error:', error));
       
-      navigate("/FlightInfo")
     };
   
     return (
@@ -39,7 +41,7 @@ function FlightInfo() {
         
         <input type="time" placeholder="Flight Time" value={time} onChange={e => setTime(e.target.value)} />
         <input type="date" placeholder="Flight Date" value={date} onChange={e => setDate(e.target.value)} />
-        <input type="text" placeholder="Dropoff Point" value={dropoff} onChange={e => setDropoff(e.target.value)} />
+        <input type="text" placeholder="Dropoff/Pickup" value={dropoff} onChange={e => setDropoff(e.target.value)} />
         <input type="text" placeholder="Airline" value={airline} onChange={e => setAirline(e.target.value)} />
         <button onClick={handleSubmit}>Submit</button>
       </div>

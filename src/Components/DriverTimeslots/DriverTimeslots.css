@@ -1,5 +1,6 @@
 .timeslots {
     text-align: left;
+    background-color: black;
     color:white;
     display: flex;
     flex-direction: column;
@@ -8,19 +9,35 @@
 
   }
 
+.timeslots .table-container{
+  background-color: white;
+  width: 80%;
+  border-radius: 10px;
+  box-shadow: 2px 2px 4px 0 whitesmoke;
+  margin: 5px;
+  padding: 13px;
+  justify-content: space-between; 
+  display: inline;
+  flex-direction: column;
+  color: black;
+  max-height: 400px;
+  overflow: auto;
+}
+
   .table {
-    width: 100%;
+    width: 80%;
     margin: 20px auto;
+
   }
   
-  th, td {
+th, td {
     padding: 10px;
     text-align: left;
     border: 0.5px solid #ddd;
     width: 30%;
   }
 
-  .icon{
+.icon{
     cursor: pointer;
 
 }
@@ -52,7 +69,7 @@
   flex-direction: row;
   justify-content: space-around;
   text-decoration: none;
-  color: white;
+  color: black;
 }
 
 .buttons{

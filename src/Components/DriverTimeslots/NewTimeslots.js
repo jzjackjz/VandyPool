@@ -22,10 +22,13 @@ function NewTimeslots() {
       },
       sessionToken
     )
-      .then((resp) => console.log(resp))
+      .then((resp) => {
+        console.log(resp);
+        navigate("/CurrTimeslots", { replace: true });
+      })
       .catch((error) => console.error("Error:", error));
 
-    navigate("/CurrTimeslots");
+    
   }
 
   return (
@@ -50,10 +53,10 @@ function NewTimeslots() {
         onChange={(e) => setSpotsAvail(e.target.value)}
       />
       <div className="buttons">
-        <button onClick={handleSubmit}>Submit</button>
         <button className="buttonLink">
           <Link to="/CurrTimeslots">Cancel</Link>
         </button>
+        <button onClick={handleSubmit}>Submit</button>
       </div>
     </div>
   );

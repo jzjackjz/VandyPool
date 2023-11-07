@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { Trash } from "react-bootstrap-icons";
+import { TableContainer } from "@mui/material";
 
 function DriverTimeslots() {
   const [timeslots, setTimeslots] = useState([]);
@@ -31,7 +32,7 @@ function DriverTimeslots() {
       );
       window.location.reload();
     } catch (error) {
-      alert("Something went wrong when deleting the timeslot, pleas try again");
+      alert("Something went wrong when deleting the timeslot, please try again");
     }
   }
 
@@ -41,34 +42,36 @@ function DriverTimeslots() {
 
   return (
     <div className="timeslots">
-      <h1>Welcome, Here are Your Current Time Slots</h1>
-      <table>
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Time</th>
-            <th>Space Available</th>
-            <th>Delete Timeslot</th>
-          </tr>
-        </thead>
-        <tbody>
-          {timeslots.map((item) => (
-            <tr key={item.id}>
-              <td>{item.date}</td>
-              <td>{item.time}</td>
-              <td>{item.space_available}</td>
-              <td>
-                {
-                  <Trash
-                    className="icon"
-                    onClick={() => handleDelete(item.id)}
-                  />
-                }
-              </td>
+      <h1>Current Time Slots</h1>
+      <div className="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Time</th>
+              <th>Space Available</th>
+              <th>Delete Timeslot</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {timeslots.map((item) => (
+              <tr key={item.id}>
+                <td>{item.date}</td>
+                <td>{item.time}</td>
+                <td>{item.space_available}</td>
+                <td>
+                  {
+                    <Trash
+                      className="icon"
+                      onClick={() => handleDelete(item.id)}
+                    />
+                  }
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        </div>
       <div className="buttons">
         <button>
           <Link to="/NewTimeslot">+ New Timeslot</Link>

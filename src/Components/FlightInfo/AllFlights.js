@@ -39,37 +39,39 @@ function AllFlights() {
     return (
         <div className="flights">
           <h1>Your Current Flights</h1>
-          <table>
-            <thead>
-              <tr>
-                <th>Ride Type</th>
-                <th>Time</th>
-                <th>Date</th>
-                <th>Dropoff/Pickup Point</th>
-                <th>Airline</th>
-                <th>Delete</th>
-              </tr>
-            </thead>
-            <tbody>
-              {flights.map((item) => (
-                <tr key={item.id}>
-                  <td>{item.ride_type}</td>
-                  <td>{item.flight_time}</td>
-                  <td>{item.flight_date}</td>
-                  <td>{item.dropoff_point}</td>
-                  <td>{item.airline}</td>
-                  <td>
-                    {
-                      <Trash
-                        className="icon"
-                        onClick={() => handleDelete(item.id)}
-                      />
-                    }
-                  </td>
+          <div className="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Ride Type</th>
+                  <th>Time</th>
+                  <th>Date</th>
+                  <th>Dropoff/Pickup</th>
+                  <th>Airline</th>
+                  <th>Delete</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {flights.map((item) => (
+                  <tr key={item.id}>
+                    <td>{item.ride_type}</td>
+                    <td>{item.flight_time}</td>
+                    <td>{item.flight_date}</td>
+                    <td>{item.dropoff_point}</td>
+                    <td>{item.airline}</td>
+                    <td>
+                      {
+                        <Trash
+                          className="icon"
+                          onClick={() => handleDelete(item.id)}
+                        />
+                      }
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
           <div className="buttons">
             <button>
               <Link to="/AddFlight">+ New Flight</Link>

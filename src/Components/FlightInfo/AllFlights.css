@@ -1,5 +1,6 @@
 .flights {
     text-align: left;
+    background-color: black;
     color:white;
     display: flex;
     flex-direction: column;
@@ -8,9 +9,26 @@
 
   }
 
+.flights .table-container{
+    background-color: white;
+    width: 80%;
+    border-radius: 10px;
+    box-shadow: 2px 2px 4px 0 whitesmoke;
+    margin: 5px;
+    padding: 13px;
+    justify-content: space-between; 
+    display: inline;
+    flex-direction: column;
+    color: black;
+
+    max-height: 400px;
+    overflow: auto;
+}
+  
   .table {
-    width: 100%;
+    width: 80%;
     margin: 20px auto;
+
   }
   
   th, td {
