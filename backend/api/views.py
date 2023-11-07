@@ -8,8 +8,8 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.decorators import api_view
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.filters import SearchFilter
-from .models import FlightInformation, Timeslot
-from .serializers import FlightInformationSerializer, UserSerializer, TimeSlotSerializer
+from .models import FlightInformation, Timeslot, UserProfile, Driver
+from .serializers import FlightInformationSerializer, UserSerializer, TimeSlotSerializer, DriverSerializer
 from google.oauth2 import id_token
 from google.auth.transport import requests
 from decouple import config
@@ -92,3 +92,7 @@ class TimeslotViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         user = self.request.user
         return Timeslot.objects.filter(user=user)
+    
+class DriverViewSet(viewsets.ModelViewSet):
+    queryset = Driver.objects.all()
+    serializer_class = DriverSerializer

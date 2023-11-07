@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { GoogleLogin } from "@react-oauth/google";
 import { useAuth } from "../../AuthContext";
 import axios from "axios";
 import "./DriverSignUp.css";
@@ -8,17 +7,24 @@ import "./DriverSignUp.css";
 function DriverSignUp() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
   const [carModel, setCarModel] = useState("");
   const [carColor, setCarColor] = useState("");
   const [licensePlate, setLicensePlate] = useState("");
-  const [seatsAvailable, setSeatsAvailable] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = () => {
-    navigate("/");
+  const handleSubmit = async () => {
+    try {
+      const res = await axios.post("http://127.0.0.1:8000/driver/", {
+        firstName: firstName,
+        lastName: lastName,
+        carModel: carModel,
+        carColor: carColor,
+        licensePlate: licensePlate,
+      });
+      navigate("/AccountInfo");
+    } catch (error) {
+      console.log("error");
+    }
   };
 
   return (
@@ -37,24 +43,6 @@ function DriverSignUp() {
         onChange={(e) => setLastName(e.target.value)}
       />
       <input
-        type="email"
-        placeholder="Vanderbilt Email Address"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <input
-        type="tel"
-        placeholder="Phone Number"
-        value={phoneNumber}
-        onChange={(e) => setPhoneNumber(e.target.value)}
-      />
-      <input
         type="model"
         placeholder="Car Model"
         value={carModel}
@@ -71,12 +59,6 @@ function DriverSignUp() {
         placeholder="License Plate"
         value={licensePlate}
         onChange={(e) => setLicensePlate(e.target.value)}
-      />
-      <input
-        type="seatsAvailable"
-        placeholder="Number of Available Seats"
-        value={seatsAvailable}
-        onChange={(e) => setSeatsAvailable(e.target.value)}
       />
       <button onClick={handleSubmit}>Submit</button>
     </div>
