@@ -2,8 +2,14 @@ import "./AccountInfo.css";
 import React from "react";
 import userImage from "./DefaultProfile.png";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function AccountInfo() {
+  const navigate = useNavigate();
+
+  const handleSubmit = () => {
+    navigate("/DriverInfo");
+  };
   return (
     <div className="account_info_container">
       <h1>Account Information</h1>
@@ -48,7 +54,7 @@ function AccountInfo() {
         </field>
       </bigbox>
 
-      <button>Click Here To Register As A Driver</button>
+      <button onClick={handleSubmit}>Click Here To Register As A Driver</button>
     </div>
   );
 }
