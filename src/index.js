@@ -24,12 +24,11 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 import { AuthProvider } from "./AuthContext";
 
 const googleClientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
-console.log(googleClientId);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <AuthProvider>
-    <GoogleOAuthProvider clientId="889198131381-dhul247pghoitlna875j2t6kej68mllq.apps.googleusercontent.com">
+    <GoogleOAuthProvider clientId={googleClientId}>
       <CookiesProvider>
         <BrowserRouter>
           <UserProvider>
@@ -49,7 +48,6 @@ root.render(
               <Route path="/ViewDrivers" element={<ViewDrivers />} />
               <Route path="/EditBasicInfo" element={<EditBasicInfo />} />
             </Routes>
-            <Footer />
           </UserProvider>
         </BrowserRouter>
       </CookiesProvider>

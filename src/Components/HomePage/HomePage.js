@@ -2,6 +2,7 @@ import "./HomePage.css";
 import React from "react";
 import HomePageLogo from "./HomePage.jpg";
 import { Link } from "react-router-dom";
+import Footer from "../Footer/Footer";
 
 function HomePage() {
   return (
