@@ -9,7 +9,7 @@ function AccountInfo() {
       <h1>Account Information</h1> 
 
       <bigbox>
-        <Link to="/DriverSignUp">
+        <Link to="/EditBasicInfo">
           <button><subtitle>Basic Information</subtitle>{">"}</button>
         </Link>
         <field>
