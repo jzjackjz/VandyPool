@@ -1,123 +1,126 @@
 import "./AccountInfo.css";
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import APIService from "../../APIService";
+import axios from "axios";
 
-function EditBasicInfo(){
-    const navigate = useNavigate();
+function EditBasicInfo() {
+  const navigate = useNavigate();
 
-    const [phone, setPhone] = useState("(615) 000-0000");
-    const [carModel, setCarModel] = useState("Car Model");
-    const [carColor, setCarColor] = useState("Car Color");
-    const [licensePlate, setLicensePlate] = useState("License Plate");
-  
-    const [editedPhone, setEditedPhone] = useState(phone);
-    const [editedCarModel, setEditedCarModel] = useState(carModel);
-    const [editedCarColor, setEditedCarColor] = useState(carColor);
-    const [editedLicensePlate, setEditedLicensePlate] = useState(licensePlate);
-  
-    // Function to handle changes in the edited phone number
-    const handlePhoneChange = (e) => {
-      setEditedPhone(e.target.value);
-    };
-  
-    // Function to handle changes in the edited car model
-    const handleCarModelChange = (e) => {
-      setEditedCarModel(e.target.value);
-    };
-  
-    // Function to handle changes in the edited car color
-    const handleCarColorChange = (e) => {
-      setEditedCarColor(e.target.value);
-    };
-  
-    // Function to handle changes in the edited license plate
-    const handleLicensePlateChange = (e) => {
-      setEditedLicensePlate(e.target.value);
-    };
-  
-    // Function to save the changes
-    const handleSave = () => {
-      // Update the actual phone number, car model, car color, and license plate with the edited values when the user clicks Save
-      setPhone(editedPhone);
-      setCarModel(editedCarModel);
-      setCarColor(editedCarColor);
-      setLicensePlate(editedLicensePlate);
-  
-      navigate("/AccountInfo");
-  
-      // TO-DO: Update in the database
-    };
-  
-    // Function to cancel the changes
-    const handleCancel = () => {
-      // Reset the edited values to the current values when the user clicks Cancel
-      setEditedPhone(phone);
-      setEditedCarModel(carModel);
-      setEditedCarColor(carColor);
-      setEditedLicensePlate(licensePlate);
-  
-      navigate("/AccountInfo");
-    };
+  const headers = {
+    Authorization: `Token ${localStorage.getItem("sessionToken")}`,
+  };
 
-    return (
-        <div className="account_info_container">
-            <bigbox>
-                <subtitle>Edit Information</subtitle>
+  const [editedPhone, setEditedPhone] = useState("");
+  const [editedCarModel, setEditedCarModel] = useState("");
+  const [editedCarColor, setEditedCarColor] = useState("");
+  const [editedLicensePlate, setEditedLicensePlate] = useState("");
 
-                <div className="label">Phone Number</div>
-                <div className="input-box">
-                <input
-                    type="text"
-                    className="name-input"
-                    value={editedPhone}
-                    onChange={handlePhoneChange}
-                />
-                </div>
+  useEffect(() => {
+    async function driverCheck() {
+      try {
+        const driverResponse = await axios.get(
+          "http://127.0.0.1:8000/driver/",
+          { headers }
+        );
+        const length = driverResponse.data.length;
+        if (length >= 1) {
+          const index = length - 1;
+          setEditedPhone(driverResponse.data[index].carModel);
+          setEditedCarModel(driverResponse.data[index].carModel);
+          setEditedCarColor(driverResponse.data[index].carColor);
+          setEditedLicensePlate(driverResponse.data[index].licensePlate);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    driverCheck();
+  }, []);
 
-                <div className="label">Car Model</div>
-                <div className="input-box">
-                <input
-                    type="text"
-                    className="name-input"
-                    value={editedCarModel}
-                    onChange={handleCarModelChange}
-                />
-                </div>
-
-                <div className="label">Car Color</div>
-                <div className="input-box">
-                <input
-                    type="text"
-                    className="name-input"
-                    value={editedCarColor}
-                    onChange={handleCarColorChange}
-                />
-                </div>
-
-                <div className="label">License Plate</div>
-                <div className="input-box">
-                <input
-                    type="text"
-                    className="name-input"
-                    value={editedLicensePlate}
-                    onChange={handleLicensePlateChange}
-                />
-                </div>
-            </bigbox>
-            <div className="button-container">
-                
-                
-                <button className="cancel-button" onClick={handleCancel}>
-                    Cancel
-                </button>
-                
-                <button className="save-button" onClick={handleSave}>
-                    Save
-                </button>
-            </div>
-        </div>
+  const handlePost = async () => {
+    const sessionToken = localStorage.getItem("sessionToken");
+    APIService.InsertDriverInfo(
+      {
+        firstName: "Nikhil",
+        lastName: "Pole",
+        carModel: editedCarModel,
+        carColor: editedCarColor,
+        licensePlate: editedLicensePlate,
+      },
+      sessionToken
     )
+      .then((resp) => {
+        navigate("/AccountInfo", { replace: true });
+      })
+      .catch((error) => console.error("Error:", error));
+  };
+
+  const handleSave = () => {
+    handlePost();
+    navigate("/AccountInfo");
+  };
+
+  const handleCancel = () => {
+    navigate("/AccountInfo");
+  };
+
+  return (
+    <div className="account_info_container">
+      <bigbox>
+        <subtitle>Edit Information</subtitle>
+
+        <div className="label">Phone Number</div>
+        <div className="input-box">
+          <input
+            type="text"
+            className="name-input"
+            value={editedPhone}
+            onChange={(e) => setEditedPhone(e.target.value)}
+          />
+        </div>
+
+        <div className="label">Car Model</div>
+        <div className="input-box">
+          <input
+            type="text"
+            className="name-input"
+            value={editedCarModel}
+            onChange={(e) => setEditedCarModel(e.target.value)}
+          />
+        </div>
+
+        <div className="label">Car Color</div>
+        <div className="input-box">
+          <input
+            type="text"
+            className="name-input"
+            value={editedCarColor}
+            onChange={(e) => setEditedCarColor(e.target.value)}
+          />
+        </div>
+
+        <div className="label">License Plate</div>
+        <div className="input-box">
+          <input
+            type="text"
+            className="name-input"
+            value={editedLicensePlate}
+            onChange={(e) => setEditedLicensePlate(e.target.value)}
+          />
+        </div>
+      </bigbox>
+      <div className="button-container">
+        <button className="cancel-button" onClick={handleCancel}>
+          Cancel
+        </button>
+
+        <button className="save-button" onClick={handleSave}>
+          Save
+        </button>
+      </div>
+    </div>
+  );
 }
 
 export default EditBasicInfo;

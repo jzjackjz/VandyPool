@@ -26,7 +26,6 @@ function AccountInfo() {
         const length = driverResponse.data.length;
         if (length >= 1) {
           const index = length - 1;
-          console.log(index);
           setDriverInfo(driverResponse.data[index]);
         }
       } catch (error) {
@@ -38,14 +37,16 @@ function AccountInfo() {
 
   return (
     <div className="account_info_container">
-
       <div className="header-container">
         <h1>Account Information</h1>
-        <Link to="/EditBasicInfo" style={{ color: "white", marginLeft: "30px" }}>
+        <Link
+          to="/EditBasicInfo"
+          style={{ color: "white", marginLeft: "30px" }}
+        >
           <span>Edit</span>
         </Link>
       </div>
-      
+
       <bigbox>
         <subtitle>Basic Information</subtitle>
         <field>
@@ -65,7 +66,7 @@ function AccountInfo() {
       </bigbox>
 
       <bigbox>
-        <subtitle>Contact Information</subtitle>  
+        <subtitle>Contact Information</subtitle>
         <field>
           <field-name>Email</field-name>
           <field-value>email@vanderbilt.edu</field-value>
@@ -95,9 +96,7 @@ function AccountInfo() {
       )}
 
       {driverInfo.length === 0 && (
-        <button onClick={handleSubmit}>
-          Register to Drive
-        </button>
+        <button onClick={handleSubmit}>Register to Drive</button>
       )}
     </div>
   );

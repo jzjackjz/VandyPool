@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../AuthContext";
-import axios from "axios";
 import "./DriverSignUp.css";
 import APIService from "../../APIService";
 
