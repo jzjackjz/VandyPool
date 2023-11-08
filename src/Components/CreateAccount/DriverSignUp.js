@@ -15,8 +15,6 @@ function DriverSignUp() {
     const sessionToken = localStorage.getItem("sessionToken");
     APIService.InsertDriverInfo(
       {
-        firstName: firstName,
-        lastName: lastName,
         carModel: carModel,
         carColor: carColor,
         licensePlate: licensePlate,
@@ -33,18 +31,6 @@ function DriverSignUp() {
   return (
     <div className="driver-signup-container">
       <h1>Add A Few More Details Here</h1>
-      <input
-        type="text"
-        placeholder="First Name"
-        value={firstName}
-        onChange={(e) => setFirstName(e.target.value)}
-      />
-      <input
-        type="text"
-        placeholder="Last Name"
-        value={lastName}
-        onChange={(e) => setLastName(e.target.value)}
-      />
       <input
         type="model"
         placeholder="Car Model"

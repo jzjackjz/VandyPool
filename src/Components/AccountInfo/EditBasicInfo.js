@@ -23,10 +23,14 @@ function EditBasicInfo() {
           "http://127.0.0.1:8000/driver/",
           { headers }
         );
+        const phoneResponse = await axios.post(
+          'http://127.0.0.1:8000/add-edit-phone-number',
+          { headers }
+        );
         const length = driverResponse.data.length;
         if (length >= 1) {
           const index = length - 1;
-          setEditedPhone(driverResponse.data[index].carModel);
+          setEditedPhone(phoneResponse);
           setEditedCarModel(driverResponse.data[index].carModel);
           setEditedCarColor(driverResponse.data[index].carColor);
           setEditedLicensePlate(driverResponse.data[index].licensePlate);
@@ -42,8 +46,6 @@ function EditBasicInfo() {
     const sessionToken = localStorage.getItem("sessionToken");
     APIService.InsertDriverInfo(
       {
-        firstName: "Nikhil",
-        lastName: "Pole",
         carModel: editedCarModel,
         carColor: editedCarColor,
         licensePlate: editedLicensePlate,

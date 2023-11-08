@@ -5,7 +5,7 @@ from rest_framework import status, viewsets
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from rest_framework.authentication import TokenAuthentication
-from rest_framework.decorators import api_view, action
+from rest_framework.decorators import api_view, action, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.filters import SearchFilter
 from .models import FlightInformation, Timeslot, UserProfile, Driver
@@ -62,19 +62,19 @@ def logout_view(request):
     return Response({"status": "success", "message": "Logged out successfully"})
 
 @api_view(['POST'])
-def add_phone_number(request):
-    phone_number = request.data.get('phone_number')
+@permission_classes([IsAuthenticated])
+def add_or_edit_phone_number(request):
     user = request.user
+    phone_number = request.data.get('phone_number')
 
-    if not phone_number:
-        return Response({'error': 'Phone number is required'}, status=status.HTTP_400_BAD_REQUEST)
+    if phone_number:
+        user_profile, created = UserProfile.objects.get_or_create(user=user)
+        user_profile.phone_number = phone_number
+        user_profile.save()
 
-    user_profile, created = UserProfile.objects.get_or_create(user=user)
-    
-    user_profile.phone_number = phone_number
-    user_profile.save()
-
-    return Response({'status': 'success', 'message': 'Phone number added successfully'})
+        return Response({'status': 'success', 'phone_number': phone_number})
+    else:
+        return Response({'status': 'error', 'message': 'No phone number provided'}, status=status.HTTP_400_BAD_REQUEST)
 
 
 
