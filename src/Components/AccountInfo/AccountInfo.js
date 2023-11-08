@@ -7,6 +7,12 @@ import axios from "axios";
 
 function AccountInfo() {
   const navigate = useNavigate();
+  const [userInfo, setUserInfo] = useState({
+    email: '',
+    phoneNumber: '',
+    firstName: '',
+    lastName: '',
+    profilePictureUrl: userImage});
   const [driverInfo, setDriverInfo] = useState([]);
   const headers = {
     Authorization: `Token ${localStorage.getItem("sessionToken")}`,
@@ -15,6 +21,29 @@ function AccountInfo() {
   const handleSubmit = () => {
     navigate("/DriverInfo");
   };
+
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      try {
+        const response = await axios.get('http://127.0.0.1:8000/users/current-user/', {
+          headers: {
+            Authorization: `Token ${localStorage.getItem("sessionToken")}`,
+          },
+        });
+        setUserInfo({
+          first_name: response.data.first_name,
+          last_name: response.data.last_name,
+          email: response.data.email,
+          phone_number: response.data.phone_number,
+          profilePictureUrl: response.data.profile_picture_url || userImage
+        });
+      } catch (error) {
+        console.error('Error fetching user info:', error);
+      }
+    };
+  
+    fetchUserInfo();
+  }, []);
 
   useEffect(() => {
     async function driverCheck() {
@@ -53,7 +82,7 @@ function AccountInfo() {
           <field-name>Profile Picture</field-name>
           <field-value>
             <img
-              src={userImage} /* Replace with the user's profile picture URL */
+              src={userInfo.profilePictureUrl} /* Replace with the user's profile picture URL */
               alt="User Profile"
               className="profile-picture" /* Apply the circular styling */
             />
@@ -61,7 +90,7 @@ function AccountInfo() {
         </field>
         <field>
           <field-name>Name</field-name>
-          <field-value>FirstName LastName</field-value>
+          <field-value>{`${userInfo?.first_name} ${userInfo?.last_name}`}</field-value>
         </field>
       </bigbox>
 
@@ -69,11 +98,11 @@ function AccountInfo() {
         <subtitle>Contact Information</subtitle>
         <field>
           <field-name>Email</field-name>
-          <field-value>email@vanderbilt.edu</field-value>
+          <field-value>{userInfo?.email}</field-value>
         </field>
         <field>
           <field-name>Phone Number</field-name>
-          <field-value>(615) 000-0000</field-value>
+          <field-value>{userInfo?.phone_number}</field-value>
         </field>
       </bigbox>
 

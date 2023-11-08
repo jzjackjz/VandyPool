@@ -6,6 +6,8 @@ from django.db import models
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     google_id = models.CharField(max_length=100, unique=True)
+    phone_number = models.CharField(max_length=10, default=0)
+    profile_picture_url = models.URLField(max_length=255, null=True, blank=True)
 
 class FlightInformation(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -27,8 +29,6 @@ class Timeslot(models.Model):
 
 class Driver(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default=None)
-    firstName = models.CharField(max_length = 50)
-    lastName = models.CharField(max_length = 50)
     carModel = models.CharField(max_length = 50)
     carColor = models.CharField(max_length = 50)
     licensePlate = models.CharField(max_length = 50)
