@@ -8,11 +8,12 @@ import axios from "axios";
 function AccountInfo() {
   const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState({
-    email: '',
-    phoneNumber: '',
-    firstName: '',
-    lastName: '',
-    profilePictureUrl: userImage});
+    email: "",
+    phoneNumber: "",
+    firstName: "",
+    lastName: "",
+    profilePictureUrl: userImage,
+  });
   const [driverInfo, setDriverInfo] = useState([]);
   const headers = {
     Authorization: `Token ${localStorage.getItem("sessionToken")}`,
@@ -25,23 +26,26 @@ function AccountInfo() {
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/users/current-user/', {
-          headers: {
-            Authorization: `Token ${localStorage.getItem("sessionToken")}`,
-          },
-        });
+        const response = await axios.get(
+          "http://127.0.0.1:8000/users/current-user/",
+          {
+            headers: {
+              Authorization: `Token ${localStorage.getItem("sessionToken")}`,
+            },
+          }
+        );
         setUserInfo({
           first_name: response.data.first_name,
           last_name: response.data.last_name,
           email: response.data.email,
           phone_number: response.data.phone_number,
-          profilePictureUrl: response.data.profile_picture_url || userImage
+          profilePictureUrl: response.data.profile_picture_url || userImage,
         });
       } catch (error) {
-        console.error('Error fetching user info:', error);
+        console.error("Error fetching user info:", error);
       }
     };
-  
+
     fetchUserInfo();
   }, []);
 
@@ -82,7 +86,9 @@ function AccountInfo() {
           <field-name>Profile Picture</field-name>
           <field-value>
             <img
-              src={userInfo.profilePictureUrl} /* Replace with the user's profile picture URL */
+              src={
+                userInfo.profilePictureUrl
+              } /* Replace with the user's profile picture URL */
               alt="User Profile"
               className="profile-picture" /* Apply the circular styling */
             />
