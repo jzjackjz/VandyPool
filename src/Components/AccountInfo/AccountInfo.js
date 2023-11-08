@@ -38,15 +38,16 @@ function AccountInfo() {
 
   return (
     <div className="account_info_container">
-      <h1>Account Information</h1>
 
-      <bigbox>
-        <Link to="/EditBasicInfo">
-          <button>
-            <subtitle>Basic Information</subtitle>
-            {">"}
-          </button>
+      <div className="header-container">
+        <h1>Account Information</h1>
+        <Link to="/EditBasicInfo" style={{ color: "white", marginLeft: "30px" }}>
+          <span>Edit</span>
         </Link>
+      </div>
+      
+      <bigbox>
+        <subtitle>Basic Information</subtitle>
         <field>
           <field-name>Profile Picture</field-name>
           <field-value>
@@ -64,12 +65,7 @@ function AccountInfo() {
       </bigbox>
 
       <bigbox>
-        <Link to="/DriverSignUp">
-          <button>
-            <subtitle>Contact Information</subtitle>
-            {">"}
-          </button>
-        </Link>
+        <subtitle>Contact Information</subtitle>  
         <field>
           <field-name>Email</field-name>
           <field-value>email@vanderbilt.edu</field-value>
@@ -82,10 +78,7 @@ function AccountInfo() {
 
       {driverInfo.length !== 0 && (
         <bigbox>
-          <button>
-            <subtitle>Driver Information</subtitle>
-            {">"}
-          </button>
+          <subtitle>Driver Information</subtitle>
           <field>
             <field-name>Car Model</field-name>
             <field-value>{driverInfo.carModel}</field-value>
@@ -103,7 +96,7 @@ function AccountInfo() {
 
       {driverInfo.length === 0 && (
         <button onClick={handleSubmit}>
-          Click Here To Register As A Driver
+          Register to Drive
         </button>
       )}
     </div>

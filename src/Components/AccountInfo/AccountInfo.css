@@ -6,7 +6,16 @@
     margin: 50px auto;
     align-items: center;
   }
-  
+
+  .account_info_container header-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 50px; 
+    text-decoration-color: white;
+    width: 100%;
+  }
+
   .account_info_container h1 {
     text-align: center;
     font-size: 30px;
@@ -14,7 +23,7 @@
     margin-bottom: 5px;
     margin: 0;
     gap: 5px;
-    display: inline-block;
+    display: inline;
   }
   
   .account_info_container bigbox {
@@ -73,15 +82,15 @@
     display: flex;
     justify-content: space-between; 
     align-items: center;
-    padding: 5px;
     border: none;
     border-radius: 5px;
-    font-size: 20px;
+    padding: 10px 20px;
+    font-size: 19px;
     cursor: pointer;
-    background-color: white; /* Black color */
-    color: black;
+    background-color: black; /* Black color */
+    color: white;
     transition: background-color 0.3s;
-    width: 100%;
+    width: auto;
     text-align: center;
   }
 
@@ -92,7 +101,7 @@
   }
   
   .account_info_container button:hover {
-    background-color: rgb(238, 237, 237); /* Darker gray on hover */
+    background-color: #aba9a9; /* Darker gray on hover */
   }
 
   .account_info_container .name-input {
