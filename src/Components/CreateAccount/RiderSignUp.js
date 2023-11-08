@@ -16,8 +16,19 @@ function RiderSignUp() {
   const [success, setSuccess] = useState("");
 
   const handleSubmit = () => {
-    //handle API add phone shit
-    navigate("/AccountInfo");
+    const sessionToken = localStorage.getItem('sessionToken');
+    axios.post('http://127.0.0.1:8000/add-phone-number', {
+      phone_number: phoneNum,
+    }, {
+      headers: { Authorization: `Token ${sessionToken}` }
+    })
+    .then(response => {
+      console.log(response.data);
+      navigate("/AccountInfo");
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
   };
 
   const handleGoogleRegister = async (response) => {

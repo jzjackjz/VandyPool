@@ -13,11 +13,15 @@ class FlightInformationSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
+    first_name = serializers.CharField()
+    last_name = serializers.CharField()
     google_id = serializers.CharField(source='userprofile.google_id', read_only=True)
+    phone_number = serializers.CharField(source='userprofile.phone_number')
+    profile_picture_url = serializers.URLField(source='userprofile.profile_picture_url', read_only=True)
     
     class Meta:
         model = User
-        fields = ['id', 'username', 'email', 'google_id']
+        fields = ['id', 'username', 'email', 'first_name', 'last_name', 'google_id', 'phone_number', 'profile_picture_url']
 
     def create(self, validated_data):
         user = User.objects.create_user(

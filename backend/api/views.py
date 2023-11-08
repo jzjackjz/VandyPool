@@ -5,7 +5,7 @@ from rest_framework import status, viewsets
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from rest_framework.authentication import TokenAuthentication
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, action
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.filters import SearchFilter
 from .models import FlightInformation, Timeslot, UserProfile, Driver
@@ -24,9 +24,11 @@ def google_register(request):
         email = idinfo.get('email')
         first_name = idinfo.get('given_name', '')
         last_name = idinfo.get('family_name', '')
+        profile_picture_url = idinfo.get('picture', '')
 
         if not User.objects.filter(email=email).exists():
             user = User.objects.create_user(username=email, email=email, first_name=first_name, last_name=last_name)
+            UserProfile.objects.create(user=user, google_id=userid, profile_picture_url=profile_picture_url)
             token, created = Token.objects.get_or_create(user=user)
 
             return Response({'status': 'success', 'user_id': user.id, 'sessionToken': token.key}, status=status.HTTP_201_CREATED)
@@ -59,6 +61,21 @@ def logout_view(request):
     
     return Response({"status": "success", "message": "Logged out successfully"})
 
+@api_view(['POST'])
+def add_phone_number(request):
+    phone_number = request.data.get('phone_number')
+    user = request.user
+
+    if not phone_number:
+        return Response({'error': 'Phone number is required'}, status=status.HTTP_400_BAD_REQUEST)
+
+    user_profile, created = UserProfile.objects.get_or_create(user=user)
+    
+    user_profile.phone_number = phone_number
+    user_profile.save()
+
+    return Response({'status': 'success', 'message': 'Phone number added successfully'})
+
 
 
 
@@ -77,8 +94,16 @@ class FlightInformationViewSet(viewsets.ModelViewSet):
         return FlightInformation.objects.filter(user=user)
 
 class UserViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated]
+    authentication_classes = (TokenAuthentication,)
+
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+    @action(detail=False, methods=['get'])
+    def current_user(self, request):
+        serializer = self.get_serializer(request.user)
+        return Response(serializer.data)
 
 class TimeslotViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
