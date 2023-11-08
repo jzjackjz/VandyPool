@@ -35,13 +35,13 @@ function FlightInfo() {
   
         <select value={option} onChange={e => setOption(e.target.value)}>
         <option value="" disabled>Select Type of Ride</option>
-        <option value="dropoff">Dropoff</option>
-        <option value="pickup">Pickup</option>
+        <option value="Departure">Departure</option>
+        <option value="Arrival">Arrival</option>
       </select>
         
         <input type="time" placeholder="Flight Time" value={time} onChange={e => setTime(e.target.value)} />
         <input type="date" placeholder="Flight Date" value={date} onChange={e => setDate(e.target.value)} />
-        <input type="text" placeholder="Dropoff/Pickup" value={dropoff} onChange={e => setDropoff(e.target.value)} />
+        <input type="text" placeholder="Location" value={dropoff} onChange={e => setDropoff(e.target.value)} />
         <input type="text" placeholder="Airline" value={airline} onChange={e => setAirline(e.target.value)} />
         <button onClick={handleSubmit}>Submit</button>
       </div>
