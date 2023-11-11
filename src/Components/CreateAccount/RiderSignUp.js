@@ -17,7 +17,7 @@ function RiderSignUp() {
 
   const handleSubmit = () => {
     const sessionToken = localStorage.getItem('sessionToken');
-    axios.post('http://127.0.0.1:8000/add-phone-number', {
+    axios.post('http://127.0.0.1:8000/add-edit-phone-number', {
       phone_number: phoneNum,
     }, {
       headers: { Authorization: `Token ${sessionToken}` }
