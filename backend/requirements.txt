@@ -36,6 +36,7 @@ Pillow==9.0.1
 pipenv==2023.9.8
 platformdirs==3.10.0
 protobuf==3.19.1
+psycopg2-binary==2.9.9
 pyasn1-modules==0.2.8
 pycosat==0.6.3
 pycurl==7.44.1
