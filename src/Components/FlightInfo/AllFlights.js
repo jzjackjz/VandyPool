@@ -1,10 +1,11 @@
 import "./AllFlights.css";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from 'react-router-dom';
 import axios from "axios";
 import { Trash } from "react-bootstrap-icons";
 
 function AllFlights() {
+    const navigate = useNavigate();
     const [flights, setFlights] = useState([]);
     const headers = {
       'Authorization': `Token ${localStorage.getItem('sessionToken')}`
@@ -31,6 +32,17 @@ function AllFlights() {
         }
 
     }
+    async function handleSelect(id) {
+      try {
+        const selectedFlight = flights.find((flight) => flight.id === id);
+        navigate('/ConnectPassengers', { state: { flight: selectedFlight } });
+
+        window.location.reload();
+      } catch (error) {
+        alert("Something went wrong when selecting the flight, please try again");
+      }
+
+  }
 
     useEffect(() => {
         fetchFlights();
@@ -49,6 +61,7 @@ function AllFlights() {
                   <th>Dropoff/Pickup</th>
                   <th>Airline</th>
                   <th>Delete</th>
+                  <th>Select</th>
                 </tr>
               </thead>
               <tbody>
@@ -67,13 +80,16 @@ function AllFlights() {
                         />
                       }
                     </td>
+                    <td>
+                      <button onClick={() => handleSelect(item.id)}>Select</button>
+                    </td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
           <div className="buttons">
-            <button>
+            <button style={{ width: '10%'}}>
               <Link to="/AddFlight">+ New Flight</Link>
             </button>
           </div>

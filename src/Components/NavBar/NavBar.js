@@ -11,9 +11,11 @@ function NavBar() {
     <div>
       <div className="navbar">
         <ul>
-          <li>
-            <Link to="/">VandyPool</Link>
-          </li>
+          {!isAuthenticated && (
+            <li>
+              <Link to="/">VandyPool</Link>
+            </li>
+          )}
 
           {isAuthenticated && (
             <>
@@ -21,16 +23,10 @@ function NavBar() {
                 <Link to="/AccountInfo" className="nav-button">My Account</Link>
               </li>
               <li>
-                <Link to="/ConnectPassengers" className="nav-button">Connect with Passengers</Link>
+                <Link to="/FlightInfo" className="nav-button">Riders</Link>
               </li>
               <li>
-                <Link to="/FlightInfo" className="nav-button">My Flights</Link>
-              </li>
-              <li>
-                <Link to="/ViewDrivers" className="nav-button">Drivers</Link>
-              </li>
-              <li>
-                <Link to="/CurrTimeslots" className="nav-button">My Timeslots</Link>
+                <Link to="/CurrTimeslots" className="nav-button">Drivers</Link>
               </li>
               <li>
                 <Link to="/LogOut" className="nav-button">Log Out</Link>
