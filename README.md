@@ -18,5 +18,6 @@ Our project was bulit with the following languages and frameworks:
 
 1. First clone the git repository
 2. Make sure to run ```npm install``` in order to merge all the React dependencies on your local device
-3. Follow the steps in the backend repository to get this running locally
-4. Run ```npm start``` to start frontend local server
+3. Run cp .env.example .env to copy the example.env files to .env files. Replace the empty placeholders with the appropriate values.
+4. Follow the steps in the backend repository to get this running locally
+5. Run ```npm start``` to start frontend local server
