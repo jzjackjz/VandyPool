@@ -13,7 +13,7 @@ function DriverTimeslots() {
 
   async function fetchTimeslots() {
     try {
-      const searchResponse = await axios.get("http://127.0.0.1:8000/timeslot", {
+      const searchResponse = await axios.get("${process.env.REACT_APP_API_BASE_URL}/timeslot", {
         headers,
       });
       setTimeslots(searchResponse.data);
@@ -27,7 +27,7 @@ function DriverTimeslots() {
   async function handleDelete(id) {
     try {
       const searchResponse = await axios.delete(
-        "http://127.0.0.1:8000/timeslot/" + id + "/",
+        "${process.env.REACT_APP_API_BASE_URL}/timeslot/" + id + "/",
         { headers }
       );
       window.location.reload();

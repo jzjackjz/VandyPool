@@ -27,7 +27,7 @@ function AccountInfo() {
     const fetchUserInfo = async () => {
       try {
         const response = await axios.get(
-          "http://127.0.0.1:8000/users/current-user/",
+          "${process.env.REACT_APP_API_BASE_URL}/users/current-user/",
           {
             headers: {
               Authorization: `Token ${localStorage.getItem("sessionToken")}`,
@@ -53,7 +53,7 @@ function AccountInfo() {
     async function driverCheck() {
       try {
         const driverResponse = await axios.get(
-          "http://127.0.0.1:8000/driver/",
+          "${process.env.REACT_APP_API_BASE_URL}/driver/",
           { headers }
         );
         const length = driverResponse.data.length;
@@ -88,7 +88,7 @@ function AccountInfo() {
             <img
               src={
                 userInfo.profilePictureUrl
-              } /* Replace with the user's profile picture URL */
+              }
               alt="User Profile"
               className="profile-picture" /* Apply the circular styling */
             />
