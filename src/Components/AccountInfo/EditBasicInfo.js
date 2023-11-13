@@ -20,11 +20,11 @@ function EditBasicInfo() {
     async function driverCheck() {
       try {
         const driverResponse = await axios.get(
-          "http://127.0.0.1:8000/driver/",
+          `${process.env.REACT_APP_API_BASE_URL}/driver/`,
           { headers }
         );
         const userResponse = await axios.get(
-          "http://127.0.0.1:8000/users/current-user/",
+          `${process.env.REACT_APP_API_BASE_URL}/users/current-user/`,
           { headers }
         );
         const length = driverResponse.data.length;
@@ -46,7 +46,7 @@ function EditBasicInfo() {
     const sessionToken = localStorage.getItem("sessionToken");
     try {
       await axios.post(
-        "http://127.0.0.1:8000/add-edit-phone-number",
+        `${process.env.REACT_APP_API_BASE_URL}/add-edit-phone-number`,
         {
           phone_number: editedPhone,
         },

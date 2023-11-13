@@ -13,7 +13,7 @@ function AllFlights() {
 
     async function fetchFlights() {
         try {
-            const searchResponse = await axios.get("${process.env.REACT_APP_API_BASE_URL}/flights", { headers });
+            const searchResponse = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/flights`, { headers });
             setFlights(searchResponse.data);
         } catch(error) {
             alert(
@@ -24,7 +24,7 @@ function AllFlights() {
     async function handleDelete(id) {
         try {
           const searchResponse = await axios.delete(
-            "${process.env.REACT_APP_API_BASE_URL}/flights/" + id + "/", { headers }
+            `${process.env.REACT_APP_API_BASE_URL}/flights/` + id + "/", { headers }
           );
           window.location.reload();
         } catch (error) {

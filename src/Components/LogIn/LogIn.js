@@ -28,7 +28,7 @@ function LogIn() {
     }
 
     try {
-      const res = await axios.post("${process.env.REACT_APP_API_BASE_URL}/auth/google-login", {
+      const res = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/auth/google-login`, {
         token: response.credential,
       });
       if (res.data.sessionToken) {

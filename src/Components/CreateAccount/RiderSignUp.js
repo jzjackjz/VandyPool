@@ -17,7 +17,7 @@ function RiderSignUp() {
 
   const handleSubmit = () => {
     const sessionToken = localStorage.getItem('sessionToken');
-    axios.post('${process.env.REACT_APP_API_BASE_URL}/add-edit-phone-number', {
+    axios.post(`${process.env.REACT_APP_API_BASE_URL}/add-edit-phone-number`, {
       phone_number: phoneNum,
     }, {
       headers: { Authorization: `Token ${sessionToken}` }
@@ -39,7 +39,7 @@ function RiderSignUp() {
 
     try {
       const res = await axios.post(
-        "${process.env.REACT_APP_API_BASE_URL}/auth/google-register",
+        `${process.env.REACT_APP_API_BASE_URL}/auth/google-register`,
         {
           token: response.credential,
         }

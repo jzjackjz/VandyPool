@@ -1,6 +1,6 @@
 export default class APIService {
   static InsertFlightInformation(body, token) {
-    return fetch("${process.env.REACT_APP_API_BASE_URL}/flights/", {
+    return fetch(`${process.env.REACT_APP_API_BASE_URL}/flights/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -11,7 +11,7 @@ export default class APIService {
   }
 
   static InsertTimeslot(body, token) {
-    return fetch("${process.env.REACT_APP_API_BASE_URL}/timeslot/", {
+    return fetch(`${process.env.REACT_APP_API_BASE_URL}/timeslot/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -22,7 +22,7 @@ export default class APIService {
   }
 
   static InsertDriverInfo(body, token) {
-    return fetch("${process.env.REACT_APP_API_BASE_URL}/driver/", {
+    return fetch(`${process.env.REACT_APP_API_BASE_URL}/driver/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

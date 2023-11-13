@@ -27,7 +27,7 @@ function AccountInfo() {
     const fetchUserInfo = async () => {
       try {
         const response = await axios.get(
-          "${process.env.REACT_APP_API_BASE_URL}/users/current-user/",
+          `${process.env.REACT_APP_API_BASE_URL}/users/current-user/`,
           {
             headers: {
               Authorization: `Token ${localStorage.getItem("sessionToken")}`,
@@ -53,7 +53,7 @@ function AccountInfo() {
     async function driverCheck() {
       try {
         const driverResponse = await axios.get(
-          "${process.env.REACT_APP_API_BASE_URL}/driver/",
+          `${process.env.REACT_APP_API_BASE_URL}/driver/`,
           { headers }
         );
         const length = driverResponse.data.length;
