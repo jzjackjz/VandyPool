@@ -22,6 +22,7 @@ import EditBasicInfo from "./Components/AccountInfo/EditBasicInfo";
 import { UserProvider } from "./UserContext";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { AuthProvider } from "./AuthContext";
+import ConnectDrivers from "./Components/Connect/ConnectDrivers";
 
 const googleClientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
@@ -41,6 +42,7 @@ root.render(
               <Route path="/DriverInfo" element={<DriverSignUp />} />
               <Route path="/AccountInfo" element={<AccountInfo />} />
               <Route path="/ConnectPassengers" element={<Connect />} />
+              <Route path="/ConnectDrivers" element={<ConnectDrivers />} />
               <Route path="/FlightInfo" element={<AllFlights />} />
               <Route path="/AddFlight" element={<FlightInfo />} />
               <Route path="/CurrTimeslots" element={<DriverTimeslots />} />

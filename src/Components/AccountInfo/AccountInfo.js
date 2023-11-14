@@ -86,9 +86,7 @@ function AccountInfo() {
           <field-name>Profile Picture</field-name>
           <field-value>
             <img
-              src={
-                userInfo.profilePictureUrl
-              }
+              src={userInfo.profilePictureUrl}
               alt="User Profile"
               className="profile-picture" /* Apply the circular styling */
             />

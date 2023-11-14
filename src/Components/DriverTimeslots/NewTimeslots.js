@@ -2,33 +2,29 @@ import axios from "axios";
 import "./NewTimeslots.css";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useUser } from "../../UserContext";
-import APIService from "../../APIService";
 
 function NewTimeslots() {
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [spotsAvail, setSpotsAvail] = useState("");
   const navigate = useNavigate();
+  const username = localStorage.getItem("username");
 
   async function handleSubmit() {
-    const sessionToken = localStorage.getItem("sessionToken");
-
-    APIService.InsertTimeslot(
-      {
-        date: date,
-        time: time,
-        space_available: spotsAvail,
-      },
-      sessionToken
-    )
-      .then((resp) => {
-        console.log(resp);
-        navigate("/CurrTimeslots", { replace: true });
-      })
-      .catch((error) => console.error("Error:", error));
-
-    
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_BASE_URL}/timeslot/`,
+        {
+          date: date,
+          time: time,
+          space_available: spotsAvail,
+          user: username,
+        }
+      );
+      navigate("/CurrTimeslots", { replace: true });
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (

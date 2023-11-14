@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../AuthContext";
 import axios from "axios";
 import "./LogIn.css";
+import { jwtDecode } from "jwt-decode";
 
 const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
@@ -13,37 +14,43 @@ function LogIn() {
   let navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem('sessionToken');
+    const token = localStorage.getItem("sessionToken");
     if (token) {
-      axios.defaults.headers.common['Authorization'] = `Token ${token}`;
+      axios.defaults.headers.common["Authorization"] = `Token ${token}`;
       navigate("/");
     }
   }, [navigate]);
 
   const handleGoogleLogin = async (response) => {
-    console.log('Login response:', response);
+    console.log("Login response:", response);
     if (response.error) {
       setError(`Google login error: ${response.error}`);
       return;
     }
+    const info = jwtDecode(response.credential);
 
     try {
-      const res = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/auth/google-login`, {
-        token: response.credential,
-      });
+      const res = await axios.post(
+        `${process.env.REACT_APP_API_BASE_URL}/auth/google-login`,
+        {
+          token: response.credential,
+        }
+      );
       if (res.data.sessionToken) {
-        localStorage.setItem('sessionToken', res.data.sessionToken);
-        axios.defaults.headers.common['Authorization'] = `Token ${res.data.sessionToken}`;
+        localStorage.setItem("username", info.email);
+        localStorage.setItem("sessionToken", res.data.sessionToken);
+        axios.defaults.headers.common[
+          "Authorization"
+        ] = `Token ${res.data.sessionToken}`;
         setIsAuthenticated(true);
         navigate("/");
       } else {
-        setError('Login failed: No session token returned from backend');
+        setError("Login failed: No session token returned from backend");
       }
     } catch (error) {
       setError(`Error during Google login: ${error.response.data.message}`);
     }
   };
-
 
   return (
     <div className="log-in-container">
