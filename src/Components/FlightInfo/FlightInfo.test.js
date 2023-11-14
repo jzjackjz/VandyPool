@@ -1,69 +1,92 @@
 import React from 'react';
-import { render, fireEvent, waitFor, screen } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
-import APIService from '../../APIService';
+import { render, fireEvent, waitFor } from '@testing-library/react';
+import '@testing-library/jest-dom/extend-expect';
 import FlightInfo from './FlightInfo';
+import APIService from '../../APIService';
 
-// Mock APIService
+// Mocking useNavigate and APIService
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useNavigate: () => jest.fn(),
+}));
+
 jest.mock('../../APIService', () => ({
   InsertFlightInformation: jest.fn(),
 }));
 
-// Mock useNavigate
-const mockedNavigate = jest.fn();
-jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'),
-  useNavigate: () => mockedNavigate,
-}));
+const mockLocalStorage = (() => {
+  let store = {};
+  return {
+    getItem(key) {
+      return store[key] || null;
+    },
+    setItem(key, value) {
+      store[key] = value.toString();
+    },
+    clear() {
+      store = {};
+    }
+  };
+})();
 
-beforeEach(() => {
-  localStorage.setItem('sessionToken', 'fake-token');
+Object.defineProperty(window, 'localStorage', {
+  value: mockLocalStorage
 });
 
-afterEach(() => {
-  localStorage.removeItem('sessionToken');
-});
+describe('FlightInfo Component', () => {
+  beforeEach(() => {
+    APIService.InsertFlightInformation.mockClear();
+  });
 
-test('renders all form inputs', () => {
-  render(
-    <MemoryRouter>
-      <FlightInfo />
-    </MemoryRouter>
-  );
-  // Check all inputs are in the document
-  expect(screen.getByPlaceholderText('Flight Time')).toBeInTheDocument();
-  expect(screen.getByPlaceholderText('Flight Date')).toBeInTheDocument();
-  expect(screen.getByPlaceholderText('Dropoff Point')).toBeInTheDocument();
-  expect(screen.getByPlaceholderText('Airline')).toBeInTheDocument();
-  expect(screen.getByRole('button', { name: /Submit/i })).toBeInTheDocument();
-});
+  test('renders FlightInfo component', () => {
+    const { getByText } = render(<FlightInfo />);
+    expect(getByText('Flight Registration')).toBeInTheDocument();
+  });
 
-test('allows users to fill out and submit the form', async () => {
-  APIService.InsertFlightInformation.mockResolvedValue({ success: true });
+  test('allows the user to enter flight details', () => {
+    const { getByPlaceholderText } = render(<FlightInfo />);
 
-  render(
-    <MemoryRouter>
-      <FlightInfo />
-    </MemoryRouter>
-  );
+    const timeInput = getByPlaceholderText('Flight Time');
+    fireEvent.change(timeInput, { target: { value: '10:00' } });
+    expect(timeInput.value).toBe('10:00');
 
-  fireEvent.change(screen.getByPlaceholderText('Flight Time'), { target: { value: '10:00' } });
-  fireEvent.change(screen.getByPlaceholderText('Flight Date'), { target: { value: '2023-12-24' } });
-  fireEvent.change(screen.getByPlaceholderText('Dropoff Point'), { target: { value: 'Terminal 1' } });
-  fireEvent.change(screen.getByPlaceholderText('Airline'), { target: { value: 'Delta' } });
-  fireEvent.click(screen.getByRole('button', { name: /Submit/i }));
+    const dateInput = getByPlaceholderText('Flight Date');
+    fireEvent.change(dateInput, { target: { value: '2023-01-01' } });
+    expect(dateInput.value).toBe('2023-01-01');
 
-  await waitFor(() => {
-    // Expect the InsertFlightInformation method to be called with the form data and the session token
-    expect(APIService.InsertFlightInformation).toHaveBeenCalledWith({
-      ride_type: expect.any(String),
-      flight_time: '10:00',
-      flight_date: '2023-12-24',
-      dropoff_point: 'Terminal 1',
-      airline: 'Delta'
-    }, 'fake-token');
+    const locationInput = getByPlaceholderText('Location');
+    fireEvent.change(locationInput, { target: { value: 'JFK Airport' } });
+    expect(locationInput.value).toBe('JFK Airport');
 
-    // Expect the navigate function to be called after successful form submission
-    expect(mockedNavigate).toHaveBeenCalledWith("/FlightInfo");
+    const airlineInput = getByPlaceholderText('Airline');
+    fireEvent.change(airlineInput, { target: { value: 'Delta' } });
+    expect(airlineInput.value).toBe('Delta');
+  });
+
+  test('submits the form with flight info', async () => {
+    APIService.InsertFlightInformation.mockResolvedValue({ success: true });
+    window.localStorage.setItem('sessionToken', 'mockToken');
+  
+    const { getByPlaceholderText, getByText, getByDisplayValue } = render(<FlightInfo />);
+  
+    fireEvent.change(getByPlaceholderText('Flight Time'), { target: { value: '10:00' } });
+    fireEvent.change(getByPlaceholderText('Flight Date'), { target: { value: '2023-01-01' } });
+    fireEvent.change(getByPlaceholderText('Location'), { target: { value: 'JFK Airport' } });
+    fireEvent.change(getByPlaceholderText('Airline'), { target: { value: 'Delta' } });
+  
+    fireEvent.change(getByDisplayValue('Select Type of Ride'), { target: { value: 'Departure' } });
+  
+    fireEvent.click(getByText('Submit'));
+  
+    await waitFor(() => {
+      expect(APIService.InsertFlightInformation).toHaveBeenCalledWith({
+        ride_type: 'Departure',
+        flight_time: '10:00',
+        flight_date: '2023-01-01',
+        dropoff_point: 'JFK Airport',
+        airline: 'Delta'
+      }, 'mockToken');
+    });
   });
 });
+

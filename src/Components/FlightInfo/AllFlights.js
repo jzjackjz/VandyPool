@@ -99,6 +99,7 @@ function AllFlights() {
                     <Trash
                       className="icon"
                       onClick={() => handleDelete(item.id)}
+                      data-testid='delete-icon'
                     />
                   }
                 </td>
