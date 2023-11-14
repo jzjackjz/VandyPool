@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { CookiesProvider } from "react-cookie";
@@ -7,7 +7,6 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import AccountInfo from "./Components/AccountInfo/AccountInfo";
 import DriverSignUp from "./Components/CreateAccount/DriverSignUp";
-import Footer from "./Components/Footer/Footer";
 import NavBar from "./Components/NavBar/NavBar";
 import RiderSignUp from "./Components/CreateAccount/RiderSignUp";
 import LogIn from "./Components/LogIn/LogIn";
@@ -16,7 +15,6 @@ import DriverTimeslots from "./Components/DriverTimeslots/DriverTimeslots";
 import NewTimeslots from "./Components/DriverTimeslots/NewTimeslots";
 import Connect from "./Components/Connect/Connect";
 import FlightInfo from "./Components/FlightInfo/FlightInfo";
-import ViewDrivers from "./Components/ViewDrivers/ViewDrivers";
 import LogOut from "./Components/LogIn/LogOut";
 import EditBasicInfo from "./Components/AccountInfo/EditBasicInfo";
 import { UserProvider } from "./UserContext";
@@ -47,7 +45,6 @@ root.render(
               <Route path="/AddFlight" element={<FlightInfo />} />
               <Route path="/CurrTimeslots" element={<DriverTimeslots />} />
               <Route path="/NewTimeslot" element={<NewTimeslots />} />
-              <Route path="/ViewDrivers" element={<ViewDrivers />} />
               <Route path="/EditBasicInfo" element={<EditBasicInfo />} />
             </Routes>
           </UserProvider>
