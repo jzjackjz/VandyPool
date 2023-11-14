@@ -30,7 +30,7 @@ function ConnectPassengers() {
 
 
   return (
-    <div className="connect-container">
+    <div className="connect">
       <h1>Other Passengers</h1>
       /*PLACEHOLDER FOR NOW*/
 

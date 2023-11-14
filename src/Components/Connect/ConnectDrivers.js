@@ -1,4 +1,4 @@
-import "./ConnectDrivers.css";
+import "./Connect.css";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
@@ -20,7 +20,7 @@ function ConnectDrivers() {
         `${process.env.REACT_APP_API_BASE_URL}/timeslot/`
       );
       const filtered = searchResponse.data.filter(
-        (obj) => obj.user !== username
+        (obj) => obj.user !== username && obj.date === flight.flight_date
       );
       setDrivers(filtered);
     } catch (error) {
@@ -31,32 +31,34 @@ function ConnectDrivers() {
   }
 
   return (
-    <div className="connect-container">
+    <div className="connect">
       <h1>Drivers Avaialble For {flight.flight_date}</h1>
-      <table>
-        <thead>
-          <tr>
-            <th>Driver Username</th>
-            <th>Date</th>
-            <th>Time</th>
-            <th>Space Available</th>
-            <th>Contact Driver</th>
-          </tr>
-        </thead>
-        <tbody>
-          {drivers.map((item) => (
-            <tr key={item.id}>
-              <td>{item.user}</td>
-              <td>{item.date}</td>
-              <td>{item.time}</td>
-              <td>{item.space_available}</td>
-              <td>
-                <button> Connect</button>
-              </td>
+      <div className="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Driver Username</th>
+              <th>Date</th>
+              <th>Time</th>
+              <th>Space Available</th>
+              <th>Contact Driver</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {drivers.map((item) => (
+              <tr key={item.id}>
+                <td>{item.user}</td>
+                <td>{item.date}</td>
+                <td>{item.time}</td>
+                <td>{item.space_available}</td>
+                <td>
+                  <button> {">"}</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }
