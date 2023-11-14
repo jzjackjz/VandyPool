@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../AuthContext";
 import axios from "axios";
 import "./RiderSignUp.css";
+import { jwtDecode } from "jwt-decode";
 
 const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
@@ -16,19 +17,24 @@ function RiderSignUp() {
   const [success, setSuccess] = useState("");
 
   const handleSubmit = () => {
-    const sessionToken = localStorage.getItem('sessionToken');
-    axios.post(`${process.env.REACT_APP_API_BASE_URL}/add-edit-phone-number`, {
-      phone_number: phoneNum,
-    }, {
-      headers: { Authorization: `Token ${sessionToken}` }
-    })
-    .then(response => {
-      console.log(response.data);
-      navigate("/AccountInfo");
-    })
-    .catch(error => {
-      console.error('Error:', error);
-    });
+    const sessionToken = localStorage.getItem("sessionToken");
+    axios
+      .post(
+        `${process.env.REACT_APP_API_BASE_URL}/add-edit-phone-number`,
+        {
+          phone_number: phoneNum,
+        },
+        {
+          headers: { Authorization: `Token ${sessionToken}` },
+        }
+      )
+      .then((response) => {
+        console.log(response.data);
+        navigate("/AccountInfo");
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   };
 
   const handleGoogleRegister = async (response) => {
@@ -36,6 +42,7 @@ function RiderSignUp() {
       setError(`Google registration error: ${response.error}`);
       return;
     }
+    const info = jwtDecode(response.credential);
 
     try {
       const res = await axios.post(
@@ -45,6 +52,7 @@ function RiderSignUp() {
         }
       );
       if (res.data.sessionToken) {
+        localStorage.setItem("username", info.email);
         localStorage.setItem("sessionToken", res.data.sessionToken);
         axios.defaults.headers.common[
           "Authorization"

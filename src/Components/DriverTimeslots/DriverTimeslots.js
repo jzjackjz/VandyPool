@@ -7,15 +7,13 @@ import { TableContainer } from "@mui/material";
 
 function DriverTimeslots() {
   const [timeslots, setTimeslots] = useState([]);
-  const headers = {
-    Authorization: `Token ${localStorage.getItem("sessionToken")}`,
-  };
+  const username = localStorage.getItem("username");
 
   async function fetchTimeslots() {
     try {
-      const searchResponse = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/timeslot`, {
-        headers,
-      });
+      const searchResponse = await axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/timeslot/?username=${username}`
+      );
       setTimeslots(searchResponse.data);
     } catch (error) {
       alert(
@@ -27,8 +25,9 @@ function DriverTimeslots() {
   async function handleDelete(id) {
     try {
       const searchResponse = await axios.delete(
-        `${process.env.REACT_APP_API_BASE_URL}/timeslot/` + id + "/",
-        { headers }
+        `${process.env.REACT_APP_API_BASE_URL}/timeslot/` +
+          id +
+          `/?username=${username}`
       );
       window.location.reload();
     } catch (error) {
