@@ -1,5 +1,6 @@
-.connect-container {
+.connect {
   text-align: left;
+  background-color: black;
   color:white;
   display: flex;
   flex-direction: column;
@@ -8,12 +9,30 @@
 
 }
 
-.table {
+
+.connect .table-container {
+  background-color: white;
+    width: 80%;
+    border-radius: 10px;
+    box-shadow: 2px 2px 4px 0 whitesmoke;
+    margin: 5px;
+    padding: 13px;
+    justify-content: space-between; 
+    display: inline;
+    flex-direction: column;
+    color: black;
+
+    max-height: 400px;
+    overflow: auto;
+
+}
+
+.connect .table {
   width: 100%;
   margin: 20px auto;
 }
 
-th, td {
+.connect th, td {
   padding: 10px;
   text-align: left;
   border: 0.5px solid #ddd;
@@ -36,14 +55,14 @@ border: none;
 border-radius: 5px;
 font-size: 16px;
 cursor: pointer;
-background-color: black;
+background-color: white;
 transition: background-color 0.3s;
-width: 10%;
+width: 100%;
 
 }
 
 .connect button:hover {
-background-color: #555;
+background-color: lightgrey;
 }
 
 .connect a{
