@@ -79,7 +79,7 @@ function EditBasicInfo() {
     handlePost();
     const timer = setTimeout(() => {
       navigate("/AccountInfo");
-    }, 100);
+    }, 200);
     return () => clearTimeout(timer);
   };
 

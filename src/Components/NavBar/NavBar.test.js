@@ -37,13 +37,11 @@ describe('NavBar', () => {
       </Router>
     );
 
-    expect(screen.getByText(/vandypool/i)).toBeInTheDocument();
-    expect(screen.getByText(/account info/i)).toBeInTheDocument();
-    expect(screen.getByText(/connect with passengers/i)).toBeInTheDocument();
-    expect(screen.getByText(/flight info/i)).toBeInTheDocument();
-    expect(screen.getByText(/view drivers/i)).toBeInTheDocument();
-    expect(screen.getByText(/view current timeslots/i)).toBeInTheDocument();
+    expect(screen.getByText(/my account/i)).toBeInTheDocument();
+    expect(screen.getByText(/riders/i)).toBeInTheDocument();
+    expect(screen.getByText(/drivers/i)).toBeInTheDocument();
     expect(screen.getByText(/log out/i)).toBeInTheDocument();
     expect(screen.queryByText(/log in/i)).toBeNull();
   });
 });
+

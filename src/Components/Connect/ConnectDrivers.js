@@ -52,7 +52,7 @@ function ConnectDrivers() {
                 <td>{item.time}</td>
                 <td>{item.space_available}</td>
                 <td>
-                  <button> Connect</button>
+                  <button> {">"}</button>
                 </td>
               </tr>
             ))}
