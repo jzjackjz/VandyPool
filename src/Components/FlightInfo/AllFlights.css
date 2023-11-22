@@ -20,7 +20,6 @@
     display: inline;
     flex-direction: column;
     color: black;
-
     max-height: 400px;
     overflow: auto;
 }

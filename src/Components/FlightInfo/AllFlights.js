@@ -7,17 +7,12 @@ import { Trash } from "react-bootstrap-icons";
 function AllFlights() {
   const navigate = useNavigate();
   const [flights, setFlights] = useState([]);
-  const headers = {
-    Authorization: `Token ${localStorage.getItem("sessionToken")}`,
-  };
+  const username = localStorage.getItem("username");
 
   async function fetchFlights() {
     try {
       const searchResponse = await axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/flights`,
-        {
-          headers,
-        }
+        `${process.env.REACT_APP_API_BASE_URL}/flights/?username=${username}`
       );
       setFlights(searchResponse.data);
     } catch (error) {
@@ -27,15 +22,16 @@ function AllFlights() {
   async function handleDelete(id) {
     try {
       const searchResponse = await axios.delete(
-        `${process.env.REACT_APP_API_BASE_URL}/flights/` + id + "/",
-        { headers }
+        `${process.env.REACT_APP_API_BASE_URL}/flights/` +
+          id +
+          `/?username=${username}`
       );
       window.location.reload();
     } catch (error) {
       alert("Something went wrong when deleting the flight, please try again");
     }
   }
-  async function handleSelect(id) {
+  async function handleRiders(id) {
     try {
       const selectedFlight = flights.find((flight) => flight.id === id);
       navigate("/ConnectPassengers", { state: { flight: selectedFlight } });
@@ -87,7 +83,7 @@ function AllFlights() {
                 <td>{item.dropoff_point}</td>
                 <td>{item.airline}</td>
                 <td>
-                  <button onClick={() => handleSelect(item.id)}>Connect</button>
+                  <button onClick={() => handleRiders(item.id)}>Connect</button>
                 </td>
                 <td>
                   <button onClick={() => handleDrivers(item.id)}>
