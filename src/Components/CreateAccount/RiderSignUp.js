@@ -15,26 +15,26 @@ function RiderSignUp() {
   const navigate = useNavigate();
   const [phoneNum, setPhoneNum] = useState("");
   const [success, setSuccess] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [user, setUser] = useState("");
+  const [profPic, setProfPic] = useState("");
 
   const handleSubmit = () => {
-    const sessionToken = localStorage.getItem("sessionToken");
-    axios
-      .post(
-        `${process.env.REACT_APP_API_BASE_URL}/add-edit-phone-number`,
-        {
-          phone_number: phoneNum,
-        },
-        {
-          headers: { Authorization: `Token ${sessionToken}` },
-        }
-      )
-      .then((response) => {
-        console.log(response.data);
-        navigate("/AccountInfo");
-      })
-      .catch((error) => {
-        console.error("Error:", error);
+    try {
+      const res = axios.post(`${process.env.REACT_APP_API_BASE_URL}/users/`, {
+        user: user,
+        phone_number: phoneNum,
+        profile_picture_url: profPic,
+        first_name: firstName,
+        last_name: lastName,
       });
+      navigate("/AccountInfo");
+    } catch (error) {
+      setError(
+        `Error during Google registration: ${error.response.data.message}`
+      );
+    }
   };
 
   const handleGoogleRegister = async (response) => {
@@ -43,6 +43,11 @@ function RiderSignUp() {
       return;
     }
     const info = jwtDecode(response.credential);
+    setFirstName(info.given_name);
+    setLastName(info.family_name);
+    setProfPic(info.picture);
+    setUser(info.email);
+    console.log(info);
 
     try {
       const res = await axios.post(

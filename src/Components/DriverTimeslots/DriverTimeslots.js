@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { Trash } from "react-bootstrap-icons";
-import { TableContainer } from "@mui/material";
 
 function DriverTimeslots() {
   const [timeslots, setTimeslots] = useState([]);
@@ -65,7 +64,7 @@ function DriverTimeslots() {
                     <Trash
                       className="icon"
                       onClick={() => handleDelete(item.id)}
-                      data-testid='delete-icon'
+                      data-testid="delete-icon"
                     />
                   }
                 </td>

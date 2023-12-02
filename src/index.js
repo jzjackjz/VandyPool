@@ -21,10 +21,11 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 import { AuthProvider } from "./AuthContext";
 import ConnectDrivers from "./Components/Connect/ConnectDrivers";
 import ConnectRiders from "./Components/Connect/ConnectRiders";
-
-const googleClientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
+import ContactDriver from "./Components/Contact/ContactDriver";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
+const googleClientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
+
 root.render(
   <AuthProvider>
     <GoogleOAuthProvider clientId={googleClientId}>
@@ -37,6 +38,7 @@ root.render(
               <Route path="/LogIn" element={<LogIn />} />
               <Route path="/LogOut" element={<LogOut />} />
               <Route path="/RiderSignUp" element={<RiderSignUp />} />
+              <Route path="/ContactDrivers" element={<ContactDriver />} />
               <Route path="/DriverInfo" element={<DriverSignUp />} />
               <Route path="/AccountInfo" element={<AccountInfo />} />
               <Route path="/ConnectPassengers" element={<ConnectRiders />} />

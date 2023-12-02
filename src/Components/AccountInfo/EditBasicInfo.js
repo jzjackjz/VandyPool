@@ -1,36 +1,31 @@
 import "./AccountInfo.css";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import APIService from "../../APIService";
 import axios from "axios";
+import userImage from "./DefaultProfile.png";
 
 function EditBasicInfo() {
   const navigate = useNavigate();
-
-  const headers = {
-    Authorization: `Token ${localStorage.getItem("sessionToken")}`,
-  };
 
   const [editedPhone, setEditedPhone] = useState("");
   const [editedCarModel, setEditedCarModel] = useState("");
   const [editedCarColor, setEditedCarColor] = useState("");
   const [editedLicensePlate, setEditedLicensePlate] = useState("");
+  const username = localStorage.getItem("username");
 
   useEffect(() => {
     async function driverCheck() {
       try {
         const driverResponse = await axios.get(
-          `${process.env.REACT_APP_API_BASE_URL}/driver/`,
-          { headers }
+          `${process.env.REACT_APP_API_BASE_URL}/driver/?username=${username}`
         );
         const userResponse = await axios.get(
-          `${process.env.REACT_APP_API_BASE_URL}/users/current-user/`,
-          { headers }
+          `${process.env.REACT_APP_API_BASE_URL}/users/?username=${username}`
         );
         const length = driverResponse.data.length;
         if (length >= 1) {
           const index = length - 1;
-          setEditedPhone(userResponse.data.phone_number);
+          setEditedPhone(userResponse.data[index].phone_number);
           setEditedCarModel(driverResponse.data[index].carModel);
           setEditedCarColor(driverResponse.data[index].carColor);
           setEditedLicensePlate(driverResponse.data[index].licensePlate);
@@ -43,36 +38,45 @@ function EditBasicInfo() {
   }, []);
 
   const handlePost = async () => {
-    const sessionToken = localStorage.getItem("sessionToken");
     try {
-      await axios.post(
-        `${process.env.REACT_APP_API_BASE_URL}/add-edit-phone-number`,
-        {
-          phone_number: editedPhone,
-        },
-        { headers }
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/users/?username=${username}`
       );
-
-      const driverInfoResponse = await APIService.InsertDriverInfo(
+      const length = response.data.length;
+      if (length >= 1) {
+        const index = length - 1;
+        const firstName = response.data[index].first_name;
+        const lastName = response.data[index].last_name;
+        const email = response.data[index].user;
+        const profilePictureUrl =
+          response.data[index].profile_picture_url || userImage;
+        try {
+          const res = await axios.post(
+            `${process.env.REACT_APP_API_BASE_URL}/users/`,
+            {
+              user: email,
+              phone_number: editedPhone,
+              profile_picture_url: profilePictureUrl,
+              first_name: firstName,
+              last_name: lastName,
+            }
+          );
+        } catch (error) {}
+      }
+    } catch (error) {
+      console.error("Error fetching user info:", error);
+    }
+    try {
+      const res = await axios.post(
+        `${process.env.REACT_APP_API_BASE_URL}/driver/`,
         {
+          user: username,
           carModel: editedCarModel,
           carColor: editedCarColor,
           licensePlate: editedLicensePlate,
-        },
-        sessionToken
+        }
       );
-
-      if (driverInfoResponse.status === 200) {
-        navigate("/AccountInfo", { replace: true });
-      } else {
-        console.error("Error updating driver info:", driverInfoResponse);
-      }
-    } catch (error) {
-      console.error(
-        "Error updating phone number:",
-        error.response ? error.response.data : error
-      );
-    }
+    } catch (error) {}
   };
 
   const handleSave = () => {

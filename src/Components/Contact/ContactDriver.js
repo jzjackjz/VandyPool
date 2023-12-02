@@ -1,11 +1,10 @@
-import "./AccountInfo.css";
+import "./ContactDriver.css";
 import React, { useEffect, useState } from "react";
 import userImage from "./DefaultProfile.png";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-function AccountInfo() {
+function ContactDriver() {
   const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState({
     email: "",
@@ -15,17 +14,19 @@ function AccountInfo() {
     profilePictureUrl: userImage,
   });
   const [driverInfo, setDriverInfo] = useState([]);
-  const username = localStorage.getItem("username");
+  const location = useLocation();
+  const { driver } = location.state || {};
+  console.log(driver);
 
   const handleSubmit = () => {
-    navigate("/DriverInfo");
+    navigate("/ConnectDrivers");
   };
 
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_BASE_URL}/users/?username=${username}`
+          `${process.env.REACT_APP_API_BASE_URL}/users/?username=${driver.user}`
         );
         const length = response.data.length;
         if (length >= 1) {
@@ -51,7 +52,7 @@ function AccountInfo() {
     async function driverCheck() {
       try {
         const driverResponse = await axios.get(
-          `${process.env.REACT_APP_API_BASE_URL}/driver/?username=${username}`
+          `${process.env.REACT_APP_API_BASE_URL}/driver/?username=${driver.user}`
         );
         const length = driverResponse.data.length;
         if (length >= 1) {
@@ -65,18 +66,22 @@ function AccountInfo() {
     driverCheck();
   }, []);
 
+  async function handleOtherDrivers() {
+    try {
+      const date = driver.date;
+      navigate("/ConnectDrivers", { state: { date: date } });
+
+      window.location.reload();
+    } catch (error) {
+      alert("Something went wrong when selecting the flight, please try again");
+    }
+  }
+
   return (
     <div className="account_info_container">
       <div className="header-container">
-        <h1>Account Information</h1>
-        <Link
-          to="/EditBasicInfo"
-          style={{ color: "white", marginLeft: "30px" }}
-        >
-          <span>Edit</span>
-        </Link>
+        <h1>Driver's Information</h1>
       </div>
-
       <bigbox>
         <subtitle>Basic Information</subtitle>
         <field>
@@ -94,7 +99,6 @@ function AccountInfo() {
           <field-value>{`${userInfo?.firstName} ${userInfo?.lastName}`}</field-value>
         </field>
       </bigbox>
-
       <bigbox>
         <subtitle>Contact Information</subtitle>
         <field>
@@ -106,7 +110,6 @@ function AccountInfo() {
           <field-value>{userInfo?.phoneNumber}</field-value>
         </field>
       </bigbox>
-
       {driverInfo.length !== 0 && (
         <bigbox>
           <subtitle>Driver Information</subtitle>
@@ -124,12 +127,9 @@ function AccountInfo() {
           </field>
         </bigbox>
       )}
-
-      {driverInfo.length === 0 && (
-        <button onClick={handleSubmit}>Register to Drive</button>
-      )}
+      <button onClick={() => handleOtherDrivers()}>View Other Drivers</button>
     </div>
   );
 }
 
-export default AccountInfo;
+export default ContactDriver;

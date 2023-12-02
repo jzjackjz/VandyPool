@@ -44,8 +44,8 @@ function AllFlights() {
 
   async function handleDrivers(id) {
     try {
-      const selectedFlight = flights.find((flight) => flight.id === id);
-      navigate("/ConnectDrivers", { state: { flight: selectedFlight } });
+      const flight = flights.find((flight) => flight.id === id);
+      navigate("/ConnectDrivers", { state: { date: flight.flight_date } });
 
       window.location.reload();
     } catch (error) {
@@ -95,7 +95,7 @@ function AllFlights() {
                     <Trash
                       className="icon"
                       onClick={() => handleDelete(item.id)}
-                      data-testid='delete-icon'
+                      data-testid="delete-icon"
                     />
                   }
                 </td>

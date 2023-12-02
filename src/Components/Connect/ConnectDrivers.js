@@ -1,14 +1,15 @@
 import "./ConnectDrivers.css";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function ConnectDrivers() {
   const [drivers, setDrivers] = useState([]);
   const username = localStorage.getItem("username");
+  const navigate = useNavigate();
 
   const location = useLocation();
-  const { flight } = location.state || {};
+  const { date } = location.state || {};
 
   useEffect(() => {
     fetchTimeslots();
@@ -20,7 +21,7 @@ function ConnectDrivers() {
         `${process.env.REACT_APP_API_BASE_URL}/timeslot/`
       );
       const filtered = searchResponse.data.filter(
-        (obj) => obj.user !== username && obj.date === flight.flight_date
+        (obj) => obj.user !== username && obj.date === date
       );
       setDrivers(filtered);
     } catch (error) {
@@ -30,9 +31,20 @@ function ConnectDrivers() {
     }
   }
 
+  async function contactDrivers(id) {
+    try {
+      const selectedDriver = drivers.find((driver) => driver.id === id);
+      navigate("/ContactDrivers", { state: { driver: selectedDriver } });
+
+      window.location.reload();
+    } catch (error) {
+      alert("Something went wrong when selecting the driver, please try again");
+    }
+  }
+
   return (
     <div className="connect">
-      <h1>Drivers Avaialble For {flight.flight_date}</h1>
+      <h1>Drivers Avaialble For {date}</h1>
       <div className="table-container">
         <table>
           <thead>
@@ -52,7 +64,7 @@ function ConnectDrivers() {
                 <td>{item.time}</td>
                 <td>{item.space_available}</td>
                 <td>
-                  <button> {">"}</button>
+                  <button onClick={() => contactDrivers(item.id)}>{">"}</button>
                 </td>
               </tr>
             ))}

@@ -1,31 +1,29 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./DriverSignUp.css";
-import APIService from "../../APIService";
+import axios from "axios";
 
 function DriverSignUp() {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
   const [carModel, setCarModel] = useState("");
   const [carColor, setCarColor] = useState("");
   const [licensePlate, setLicensePlate] = useState("");
   const navigate = useNavigate();
+  const username = localStorage.getItem("username");
 
   const handleSubmit = async () => {
-    const sessionToken = localStorage.getItem("sessionToken");
-    APIService.InsertDriverInfo(
-      {
-        carModel: carModel,
-        carColor: carColor,
-        licensePlate: licensePlate,
-      },
-      sessionToken
-    )
-      .then((resp) => {
-        console.log(resp);
-        navigate("/AccountInfo", { replace: true });
-      })
-      .catch((error) => console.error("Error:", error));
+    console.log(username);
+    try {
+      const res = await axios.post(
+        `${process.env.REACT_APP_API_BASE_URL}/driver/`,
+        {
+          user: username,
+          carModel: carModel,
+          carColor: carColor,
+          licensePlate: licensePlate,
+        }
+      );
+      navigate("/AccountInfo");
+    } catch (error) {}
   };
 
   return (
