@@ -1,4 +1,4 @@
-.timeslots {
+.flights {
     text-align: left;
     background-color: black;
     color:white;
@@ -9,35 +9,35 @@
 
   }
 
-.timeslots .table-container{
-  background-color: white;
-  width: 80%;
-  border-radius: 10px;
-  box-shadow: 2px 2px 4px 0 whitesmoke;
-  margin: 5px;
-  padding: 13px;
-  justify-content: space-between; 
-  display: inline;
-  flex-direction: column;
-  color: black;
-  max-height: 400px;
-  overflow: auto;
+.flights .table-container{
+    background-color: white;
+    width: 80%;
+    border-radius: 10px;
+    box-shadow: 2px 2px 4px 0 whitesmoke;
+    margin: 5px;
+    padding: 13px;
+    justify-content: space-between; 
+    display: inline;
+    flex-direction: column;
+    color: black;
+    max-height: 400px;
+    overflow: auto;
 }
-
+  
   .table {
     width: 80%;
     margin: 20px auto;
 
   }
   
-th, td {
+  th, td {
     padding: 10px;
     text-align: left;
     border: 0.5px solid #ddd;
     width: 30%;
   }
 
-.icon{
+  .icon{
     cursor: pointer;
 
 }
@@ -47,29 +47,28 @@ th, td {
 }
 
 
-.timeslots button {
+.flights button {
   padding: 12px;
   border: none;
   border-radius: 5px;
   font-size: 16px;
   cursor: pointer;
-  background-color: rgba(93, 93, 93, 0.834);
+  background-color: grey;
   transition: background-color 0.3s;
-  width: 10%;
-
+  width: 100%;
 }
 
-.timeslots button:hover {
-  background-color: #7e7e7e;
+.flights button:hover {
+  background-color: #555;
 }
 
-.timeslots a{
+.flights a{
   display: flex;
   width: 100%;
   flex-direction: row;
   justify-content: space-around;
   text-decoration: none;
-  color: black;
+  color: white;
 }
 
 .buttons{

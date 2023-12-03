@@ -22,6 +22,7 @@ import { AuthProvider } from "./AuthContext";
 import ConnectDrivers from "./Components/Connect/ConnectDrivers";
 import ConnectRiders from "./Components/Connect/ConnectRiders";
 import ContactDriver from "./Components/Contact/ContactDriver";
+import PastFlights from "./Components/FlightInfo/PastFlights";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const googleClientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
@@ -45,6 +46,7 @@ root.render(
               <Route path="/ConnectDrivers" element={<ConnectDrivers />} />
               <Route path="/FlightInfo" element={<AllFlights />} />
               <Route path="/AddFlight" element={<FlightInfo />} />
+              <Route path="/PastFlights" element={<PastFlights />} />
               <Route path="/CurrTimeslots" element={<DriverTimeslots />} />
               <Route path="/NewTimeslot" element={<NewTimeslots />} />
               <Route path="/EditBasicInfo" element={<EditBasicInfo />} />

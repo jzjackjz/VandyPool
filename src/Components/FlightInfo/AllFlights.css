@@ -53,13 +53,13 @@
   border-radius: 5px;
   font-size: 16px;
   cursor: pointer;
-  background-color: grey;
+  background-color: rgba(93, 93, 93, 0.834);
   transition: background-color 0.3s;
   width: 100%;
 }
 
 .flights button:hover {
-  background-color: #555;
+  background-color: #7e7e7e;
 }
 
 .flights a{

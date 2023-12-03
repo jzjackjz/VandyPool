@@ -9,12 +9,32 @@ function AllFlights() {
   const [flights, setFlights] = useState([]);
   const username = localStorage.getItem("username");
 
+  function convertToCentralTime(date) {
+    return new Date(date).toLocaleString("en-US", { timeZone: "America/Chicago" });
+  }
+
+  function isPastDate(flightDate, currentDate) {
+    const flight = new Date(flightDate);
+    const current = new Date(currentDate);
+  
+    flight.setHours(0, 0, 0, 0);
+    current.setHours(0, 0, 0, 0);
+    flight.setDate(flight.getDate() + 1);
+  
+    return flight < current;
+  }
+  
   async function fetchFlights() {
     try {
       const searchResponse = await axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/flights/?username=${username}`
       );
-      setFlights(searchResponse.data);
+      const todayCentralTime = convertToCentralTime(new Date());
+      const upcomingFlights = searchResponse.data.filter(flight => {
+        const flightDateCentralTime = convertToCentralTime(flight.flight_date);
+        return !isPastDate(flightDateCentralTime, todayCentralTime);
+      });
+      setFlights(upcomingFlights);
     } catch (error) {
       alert("Something went wrong when fetching flights, please refresh page");
     }
@@ -107,6 +127,9 @@ function AllFlights() {
       <div className="buttons">
         <button style={{ width: "10%" }}>
           <Link to="/AddFlight">+ New Flight</Link>
+        </button>
+        <button style={{ width: "11%" }}>
+          <Link to="/PastFlights">View Past Flights</Link>
         </button>
       </div>
     </div>
