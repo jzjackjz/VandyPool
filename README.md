@@ -10,8 +10,8 @@ Our project was bulit with the following languages and frameworks:
 
 * React
 * Python
-* Node.js
 * Django Framework
+* Heroku + Vercel
 
 
 ### Getting Started
