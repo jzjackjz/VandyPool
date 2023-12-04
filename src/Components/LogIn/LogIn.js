@@ -43,7 +43,7 @@ function LogIn() {
           "Authorization"
         ] = `Token ${res.data.sessionToken}`;
         setIsAuthenticated(true);
-        navigate("/");
+        navigate("/AccountInfo");
       } else {
         setError("Login failed: No session token returned from backend");
       }

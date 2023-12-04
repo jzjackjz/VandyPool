@@ -42,6 +42,10 @@ function ConnectDrivers() {
     }
   }
 
+  function handleOtherFlights() {
+    navigate("/FlightInfo");
+  }
+
   return (
     <div className="connect">
       <h1>Drivers Avaialble For {date}</h1>
@@ -70,6 +74,11 @@ function ConnectDrivers() {
             ))}
           </tbody>
         </table>
+      </div>
+      <div>
+        <button onClick={() => handleOtherFlights()}>
+          Browse Other Flights
+        </button>
       </div>
     </div>
   );

@@ -10,27 +10,29 @@ function AllFlights() {
   const username = localStorage.getItem("username");
 
   function convertToCentralTime(date) {
-    return new Date(date).toLocaleString("en-US", { timeZone: "America/Chicago" });
+    return new Date(date).toLocaleString("en-US", {
+      timeZone: "America/Chicago",
+    });
   }
 
   function isPastDate(flightDate, currentDate) {
     const flight = new Date(flightDate);
     const current = new Date(currentDate);
-  
+
     flight.setHours(0, 0, 0, 0);
     current.setHours(0, 0, 0, 0);
     flight.setDate(flight.getDate() + 1);
-  
+
     return flight < current;
   }
-  
+
   async function fetchFlights() {
     try {
       const searchResponse = await axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/flights/?username=${username}`
       );
       const todayCentralTime = convertToCentralTime(new Date());
-      const upcomingFlights = searchResponse.data.filter(flight => {
+      const upcomingFlights = searchResponse.data.filter((flight) => {
         const flightDateCentralTime = convertToCentralTime(flight.flight_date);
         return !isPastDate(flightDateCentralTime, todayCentralTime);
       });
@@ -54,7 +56,9 @@ function AllFlights() {
   async function handleRiders(id) {
     try {
       const selectedFlight = flights.find((flight) => flight.id === id);
-      navigate("/ConnectPassengers", { state: { flight: selectedFlight } });
+      navigate("/ConnectPassengers", {
+        state: { date: selectedFlight.flight_date },
+      });
 
       window.location.reload();
     } catch (error) {

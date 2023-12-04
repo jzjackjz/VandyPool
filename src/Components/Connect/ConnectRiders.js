@@ -1,14 +1,15 @@
 import "./ConnectRiders.css";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function ConnectRiders() {
+  const navigate = useNavigate();
   const [passengers, setPassengers] = useState([]);
   const username = localStorage.getItem("username");
 
   const location = useLocation();
-  const { flight } = location.state || {};
+  const { date } = location.state || {};
 
   useEffect(() => {
     fetchFlights();
@@ -20,7 +21,7 @@ function ConnectRiders() {
         `${process.env.REACT_APP_API_BASE_URL}/flights/`
       );
       const filtered = searchResponse.data.filter(
-        (obj) => obj.user !== username && obj.flight_date === flight.flight_date
+        (obj) => obj.user !== username && obj.flight_date === date
       );
       setPassengers(filtered);
     } catch (error) {
@@ -30,9 +31,30 @@ function ConnectRiders() {
     }
   }
 
+  async function contactPassengers(id) {
+    try {
+      const selectedPassenger = passengers.find(
+        (passenger) => passenger.id === id
+      );
+      navigate("/ContactPassenger", {
+        state: { passenger: selectedPassenger },
+      });
+
+      window.location.reload();
+    } catch (error) {
+      alert(
+        "Something went wrong when selecting the passenger, please try again"
+      );
+    }
+  }
+
+  function handleOtherFlights() {
+    navigate("/FlightInfo");
+  }
+
   return (
     <div className="connect">
-      <h1>Passengers Avaialble For {flight.flight_date}</h1>
+      <h1>Passengers Avaialble For {date}</h1>
       <div className="table-container">
         <table>
           <thead>
@@ -56,12 +78,19 @@ function ConnectRiders() {
                 <td>{item.airline}</td>
                 <td>{item.ride_type}</td>
                 <td>
-                  <button> Connect</button>
+                  <button onClick={() => contactPassengers(item.id)}>
+                    {">"}
+                  </button>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
+      </div>
+      <div>
+        <button onClick={() => handleOtherFlights()}>
+          Browse Other Flights
+        </button>
       </div>
     </div>
   );

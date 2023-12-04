@@ -1,37 +1,43 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { Link } from "react-router-dom";
 
 function PastFlights() {
   const [flights, setFlights] = useState([]);
-  const username = localStorage.getItem('username');
+  const username = localStorage.getItem("username");
 
   function convertToCentralTime(date) {
-    return new Date(date).toLocaleString('en-US', { timeZone: 'America/Chicago' });
+    return new Date(date).toLocaleString("en-US", {
+      timeZone: "America/Chicago",
+    });
   }
 
   function isPastDate(flightDate, currentDate) {
     const flight = new Date(flightDate);
     const current = new Date(currentDate);
-  
+
     flight.setHours(0, 0, 0, 0);
     current.setHours(0, 0, 0, 0);
     flight.setDate(flight.getDate() + 1);
-  
+
     return flight < current;
   }
 
   async function fetchPastFlights() {
     try {
-      const searchResponse = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/flights/?username=${username}`);
+      const searchResponse = await axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/flights/?username=${username}`
+      );
       const todayCentralTime = convertToCentralTime(new Date());
-      const pastFlights = searchResponse.data.filter(flight => {
+      const pastFlights = searchResponse.data.filter((flight) => {
         const flightDateCentralTime = convertToCentralTime(flight.flight_date);
         return isPastDate(flightDateCentralTime, todayCentralTime);
       });
       setFlights(pastFlights);
     } catch (error) {
-      alert('Something went wrong when fetching past flights, please refresh the page');
+      alert(
+        "Something went wrong when fetching past flights, please refresh the page"
+      );
     }
   }
 
