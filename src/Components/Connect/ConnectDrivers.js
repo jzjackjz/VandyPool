@@ -25,9 +25,7 @@ function ConnectDrivers() {
       );
       setDrivers(filtered);
     } catch (error) {
-      alert(
-        "Something went wrong when fetching the flights, please refresh page"
-      );
+      console.log("Something went wrong when fetching the flights, please refresh page");
     }
   }
 
@@ -38,7 +36,7 @@ function ConnectDrivers() {
 
       window.location.reload();
     } catch (error) {
-      alert("Something went wrong when selecting the driver, please try again");
+      console.log("Something went wrong when selecting the driver, please try again");
     }
   }
 

@@ -25,9 +25,7 @@ function ConnectRiders() {
       );
       setPassengers(filtered);
     } catch (error) {
-      alert(
-        "Something went wrong when fetching the passengers, please refresh page"
-      );
+      console.log("Something went wrong when fetching the passengers, please refresh page");
     }
   }
 
@@ -42,9 +40,7 @@ function ConnectRiders() {
 
       window.location.reload();
     } catch (error) {
-      alert(
-        "Something went wrong when selecting the passenger, please try again"
-      );
+      console.log("Something went wrong when selecting the passenger, please try again");
     }
   }
 
