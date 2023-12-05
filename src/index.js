@@ -24,6 +24,7 @@ import ConnectRiders from "./Components/Connect/ConnectRiders";
 import ContactDriver from "./Components/Contact/ContactDriver";
 import PastFlights from "./Components/FlightInfo/PastFlights";
 import ContactPassenger from "./Components/Contact/ContactPassenger";
+import OtherPageForNonDrivers from "./Components/AccountInfo/OtherPageForNonDrivers"
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const googleClientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
@@ -52,6 +53,7 @@ root.render(
               <Route path="/CurrTimeslots" element={<DriverTimeslots />} />
               <Route path="/NewTimeslot" element={<NewTimeslots />} />
               <Route path="/EditBasicInfo" element={<EditBasicInfo />} />
+              <Route path="/OtherPageForNonDrivers" element={<OtherPageForNonDrivers />} />
             </Routes>
           </UserProvider>
         </BrowserRouter>
