@@ -30,7 +30,7 @@ function DriverTimeslots() {
       );
       window.location.reload();
     } catch (error) {
-      alert(
+      console.log(
         "Something went wrong when deleting the timeslot, please try again"
       );
     }

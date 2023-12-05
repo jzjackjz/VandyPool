@@ -35,7 +35,7 @@ function PastFlights() {
       });
       setFlights(pastFlights);
     } catch (error) {
-      alert(
+      console.log(
         "Something went wrong when fetching past flights, please refresh the page"
       );
     }

@@ -38,7 +38,7 @@ function AllFlights() {
       });
       setFlights(upcomingFlights);
     } catch (error) {
-      alert("Something went wrong when fetching flights, please refresh page");
+      console.log("Something went wrong when fetching flights, please refresh page");
     }
   }
   async function handleDelete(id) {
@@ -50,7 +50,7 @@ function AllFlights() {
       );
       window.location.reload();
     } catch (error) {
-      alert("Something went wrong when deleting the flight, please try again");
+      console.log("Something went wrong when deleting the flight, please try again");
     }
   }
   async function handleRiders(id) {
@@ -62,7 +62,7 @@ function AllFlights() {
 
       window.location.reload();
     } catch (error) {
-      alert("Something went wrong when selecting the flight, please try again");
+      console.log("Something went wrong when selecting the flight, please try again");
     }
   }
 
@@ -73,7 +73,7 @@ function AllFlights() {
 
       window.location.reload();
     } catch (error) {
-      alert("Something went wrong when selecting the flight, please try again");
+      console.log("Something went wrong when selecting the flight, please try again");
     }
   }
 
